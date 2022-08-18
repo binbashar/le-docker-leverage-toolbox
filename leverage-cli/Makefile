@@ -20,7 +20,7 @@ TERRAFORM_TAG    := 1.2.1
 LEVERAGE_CLI_TAG := 0.0.1
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
-DOCKER_IMG_NAME  := leverage-cli
+DOCKER_IMG_NAME  := leverage-toolbox
 
 LOCAL_OS_AWS_CONF_DIR := ~/.aws/bb
 AWS_REGION            := us-east-1
