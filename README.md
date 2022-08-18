@@ -65,3 +65,5 @@ Another example, e.g., given image *binbash/leverage-toolbox:1.2.1-0.5.3*:
   - *binbash/leverage-toolbox:1.2.1-0.5.4* or *binbash/leverage-toolbox:1.2.1-0.6.0* (these examples are a patch and a minor)
 - If Terraform is updated then LEVERAGE_TOOLBOX_IMAGE_VERSION is reset and TERRAFORM_VERSION is bumped accordingly to the Terraform version, e.g.:
   - *binbash/leverage-toolbox:1.2.2-0.0.1* or *binbash/leverage-toolbox:1.3.0-0.0.1*
+
+**NOTE** In any case, as a rule of thumb no version (tag) has to be pushed into the image repository if it already exists there.
