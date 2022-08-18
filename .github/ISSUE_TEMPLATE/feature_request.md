@@ -2,14 +2,14 @@
 name: Feature Request
 about: Suggest an idea for this project
 title: ''
-labels: 'feature request'
+labels: 'feature'
 assignees: ''
 
 ---
 
 ## Describe the Feature
 
-A clear and concise description of what the bug is. 
+A clear and concise description of what the feature is.
 
 ## Expected Behavior
 
