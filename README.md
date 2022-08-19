@@ -1,6 +1,6 @@
 <div align="center">
     <img src="https://raw.githubusercontent.com/binbashar/le-ref-architecture-doc/master/docs/assets/images/logos/binbash-leverage-banner.png" 
-    alt="drawing" width="250"/>
+    alt="drawing" width="100%"/>
 </div>
 
 # le-docker-leverage
