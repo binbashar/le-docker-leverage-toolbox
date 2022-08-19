@@ -17,8 +17,11 @@ MAKEFILES_DIR    := ../@bin/makefiles
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
 TERRAFORM_TAG    := 1.2.1
-LEVERAGE_CLI_TAG := 0.0.1
-DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
+LEVEL            := 'minor'
+SCRIPT           := 'bumpversion.sh'
+SHELL            := 'bash'
+DOCKER_TAG       := $(shell ${SHELL} ${SCRIPT} ${TERRAFORM_TAG} ${LEVEL})
+
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
 
@@ -51,14 +54,13 @@ build-leverage-cli: setver build clearver
 # docker settings
 #
 setver: ## set version
-	@echo ${DOCKER_TAG} && \
+	@echo "Creating Dockerfile for ${DOCKER_TAG}" && \
 	cp Dockerfile.template Dockerfile && \
 	sed -i -E 's/TERRAFORM_VERSION/'${TERRAFORM_TAG}'/' Dockerfile
 
 clearver: ## clear version files
 	@echo "Deleting Dockerfile for ${DOCKER_TAG}..." && \
 	rm Dockerfile
-	 
 
 #
 # docker run tests
