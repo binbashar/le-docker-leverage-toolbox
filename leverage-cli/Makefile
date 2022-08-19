@@ -17,10 +17,15 @@ MAKEFILES_DIR    := ../@bin/makefiles
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
 TERRAFORM_TAG    := 1.2.1
-LEVEL            := 'minor'
+LEVEL            := 'patch'
 SCRIPT           := 'bumpversion.sh'
 SHELL            := 'bash'
-DOCKER_TAG       := $(shell ${SHELL} ${SCRIPT} ${TERRAFORM_TAG} ${LEVEL})
+
+REQ_TARGET       := $(shell ${SHELL} -c "echo \"${MAKECMDGOALS}\" | cut -d \" \" -f 1")
+BUMPING_TARGET   := 'build-leverage-cli'
+SCRIPT_ACTION    := $(shell ${SHELL} -c "if [ \"${REQ_TARGET}\" == "${BUMPING_TARGET}" ]; then echo 'retrieve'; else echo 'bump'; fi")
+
+DOCKER_TAG       := $(shell ${SHELL} ${SCRIPT} ${SCRIPT_ACTION} ${TERRAFORM_TAG} ${LEVEL})
 
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
