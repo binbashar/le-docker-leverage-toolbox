@@ -1,10 +1,6 @@
 <div align="center">
-    <img src="https://raw.githubusercontent.com/binbashar/le-docker-leverage/master/%40doc/figures/binbash.png" 
+    <img src="https://raw.githubusercontent.com/binbashar/le-ref-architecture-doc/master/docs/assets/images/logos/binbash-leverage-banner.png" 
     alt="drawing" width="250"/>
-</div>
-<div align="right">
-  <img src="https://raw.githubusercontent.com/binbashar/le-docker-leverage/master/%40doc/figures/binbash-leverage-docker.png" 
-  alt="leverage" width="130"/>
 </div>
 
 # le-docker-leverage
