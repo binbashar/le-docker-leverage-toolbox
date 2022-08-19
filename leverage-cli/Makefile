@@ -23,7 +23,7 @@ SHELL            := 'bash'
 
 REQ_TARGET       := $(shell ${SHELL} -c "echo \"${MAKECMDGOALS}\" | cut -d \" \" -f 1")
 BUMPING_TARGET   := 'build-leverage-cli'
-SCRIPT_ACTION    := $(shell ${SHELL} -c "if [ \"${REQ_TARGET}\" == "${BUMPING_TARGET}" ]; then echo 'retrieve'; else echo 'bump'; fi")
+SCRIPT_ACTION    := $(shell ${SHELL} -c "if [ \"${REQ_TARGET}\" == "${BUMPING_TARGET}" ]; then echo 'bump'; else echo 'retrieve'; fi")
 
 DOCKER_TAG       := $(shell ${SHELL} ${SCRIPT} ${SCRIPT_ACTION} ${TERRAFORM_TAG} ${LEVEL})
 
