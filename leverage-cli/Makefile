@@ -45,7 +45,7 @@ help:
 #
 # docker meta method
 #
-build-leverage-cli: setver setbuildx build clearver
+build-leverage-cli: setver setbuildx clearver
 
 #
 # docker settings
@@ -56,7 +56,12 @@ setver: ## set version
 	sed -i -E 's/TERRAFORM_VERSION/'${TERRAFORM_TAG}'/' Dockerfile
 
 setbuildx:
-	docker buildx create --use && docker run --privileged --rm tonistiigi/binfmt --install amd64,arm64,arm/v6,arm/v7,arm/v8
+	docker buildx create --use && docker run --privileged --rm tonistiigi/binfmt --install amd64,arm64,arm/v6,arm/v7,arm/v8 && \
+	docker buildx build \
+		--platform linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7,linux/arm/v8 \
+	    --load
+		-t ${DOCKER_REPO_NAME}/${DOCKER_IMG_NAME}:${DOCKER_TAG} \
+		--build-arg DOCKER_TAG='${DOCKER_TAG}' .
 
 clearver: ## clear version files
 	@echo "Deleting Dockerfile for ${DOCKER_TAG}..." && \
