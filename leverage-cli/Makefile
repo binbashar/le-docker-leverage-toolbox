@@ -45,7 +45,7 @@ help:
 #
 # docker meta method
 #
-build-leverage-cli: setver build clearver
+build-leverage-cli: setver setbuildx build clearver
 
 #
 # docker settings
@@ -54,6 +54,9 @@ setver: ## set version
 	@echo ${DOCKER_TAG} && \
 	cp Dockerfile.template Dockerfile && \
 	sed -i -E 's/TERRAFORM_VERSION/'${TERRAFORM_TAG}'/' Dockerfile
+
+setbuildx:
+	docker buildx create --use
 
 clearver: ## clear version files
 	@echo "Deleting Dockerfile for ${DOCKER_TAG}..." && \
