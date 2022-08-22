@@ -16,7 +16,7 @@ MAKEFILES_DIR    := ../@bin/makefiles
 # 1.2.1-0.0.1
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
-TERRAFORM_TAG    := 1.2.1
+TERRAFORM_TAG    := 1.2.7
 LEVERAGE_CLI_TAG := 0.0.1
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
@@ -56,7 +56,7 @@ setver: ## set version
 	sed -i -E 's/TERRAFORM_VERSION/'${TERRAFORM_TAG}'/' Dockerfile
 
 setbuildx:
-	docker buildx create --use
+	docker buildx create --use && docker run --privileged --rm tonistiigi/binfmt --install amd64,arm64,arm/v6,arm/v7,arm/v8
 
 clearver: ## clear version files
 	@echo "Deleting Dockerfile for ${DOCKER_TAG}..." && \
