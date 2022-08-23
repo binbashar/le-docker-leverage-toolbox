@@ -68,7 +68,7 @@ jobs:
 
       - run:
           name: Build && Push docker images
-          command: make build-all && make push-all
+          command: make push-all
           no_output_timeout: 30m
 
   #

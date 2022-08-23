@@ -14,10 +14,10 @@ help:
 # INITIALIZATION                                               #
 #==============================================================#
 init-makefiles: ## initialize makefiles
-	rm -rf ${MAKEFILES_DIR}
-	mkdir -p ${MAKEFILES_DIR}
-	git clone https://github.com/binbashar/le-dev-makefiles.git ${MAKEFILES_DIR} -q
-	cd ${MAKEFILES_DIR} && git checkout ${MAKEFILES_VER} -q
+	@rm -rf ${MAKEFILES_DIR}
+	@mkdir -p ${MAKEFILES_DIR}
+	@git clone https://github.com/binbashar/le-dev-makefiles.git ${MAKEFILES_DIR} -q
+	@cd ${MAKEFILES_DIR} && git checkout ${MAKEFILES_VER} -q
 
 -include ${MAKEFILES_DIR}/circleci/circleci.mk
 -include ${MAKEFILES_DIR}/release-mgmt/release.mk
@@ -26,7 +26,7 @@ init-makefiles: ## initialize makefiles
 # DOCKER | BUILD ALL IMAGES                                    #
 #==============================================================#
 build-all: ## build all docker images
-	set -- ${DOCKER_IMG};\
+	@set -e;\
 	echo -----------------------;\
 	echo DOCKER IMG: ${DOCKER_IMG};\
 	echo -----------------------;\
@@ -42,7 +42,7 @@ build-all: ## build all docker images
 # DOCKER | TEST ALL IMAGES                                     #
 #==============================================================#
 test-all: ## build all docker images
-	set -- ${DOCKER_IMG};\
+	@set -e;\
 	echo -----------------------;\
 	echo DOCKER IMG: ${DOCKER_IMG};\
 	echo -----------------------;\
@@ -57,12 +57,12 @@ test-all: ## build all docker images
 # DOCKER | PUSH ALL IMAGES                                     #
 #==============================================================#
 push-all: ## build all docker images
-	set -- ${DOCKER_IMG};\
+	set -e;\
 	echo -----------------------;\
 	echo DOCKER IMG: ${DOCKER_IMG};\
 	echo -----------------------;\
 			cd ${DOCKER_IMG};\
-			make push;\
+			make push-leverage-cli;\
 			cd ..;\
 	echo -----------------------;\
 	echo "DOCKER BUILD DONE";\

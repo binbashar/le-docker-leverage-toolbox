@@ -45,7 +45,8 @@ help:
 #
 # docker meta method
 #
-build-leverage-cli: setver setbuildx test clearver
+build-leverage-cli: setver build clearver
+push-leverage-cli: setver push clearver
 
 #
 # docker settings
