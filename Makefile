@@ -79,7 +79,7 @@ init-makefiles: ## initialize makefiles
 #==============================================================#
 # DOCKER | BUILD ALL IMAGES                                    #
 #==============================================================#
-build-all: setver build clearver ## build all docker images
+build-all: check-version-bumping setver build clearver ## build all docker images
 
 #==============================================================#
 # DOCKER | TEST ALL IMAGES                                     #
