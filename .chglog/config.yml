@@ -2,7 +2,7 @@ style: github
 template: CHANGELOG.tpl.md
 info:
   title: CHANGELOG
-  repository_url: https://github.com/binbashar/public-docker-images
+  repository_url: https://github.com/binbashar/le-docker-leverage-toolbox
 options:
   header:
     pattern: "^(.*)$"
