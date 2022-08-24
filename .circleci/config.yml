@@ -15,4 +15,7 @@ workflows:
             scripts/* image-data-modified true
             Makefile image-data-modified true
             ./* not-image-related true
+            ./.chglog/* not-image-related true
+            ./.circleci/* not-image-related true
+            ./.github/* not-image-related true
           config-path: .circleci/workflows.yml
