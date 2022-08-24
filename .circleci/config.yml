@@ -14,5 +14,5 @@ workflows:
             Dockerfile.template image-data-modified true
             scripts/* image-data-modified true
             Makefile image-data-modified true
-            * not-image-related true
+            ./* not-image-related true
           config-path: .circleci/workflows.yml
