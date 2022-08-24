@@ -50,6 +50,10 @@ jobs:
       docker_layer_caching: false
 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+              - "96:3c:7c:62:49:17:fc:20:50:c9:d1:34:15:81:25:7b"
+
       - checkout
 
       - run:
@@ -70,52 +74,6 @@ jobs:
           name: Build && Push docker images
           command: make push-all
           no_output_timeout: 30m
-
-  #
-  # Release
-  #
-  release-version-with-changelog:
-    machine:
-      image: ubuntu-2204:2022.04.1
-
-      # This job has been blocked because Docker Layer Caching is not available on your plan.
-      # Please upgrade to continue building.
-      # Note: you will need to push a new commit or call the API to rerun the pipeline.
-      docker_layer_caching: false
-
-    environment:
-      VERSION_NUMBER: patch # opts: patch, minor or major.
-
-    steps:
-      - checkout
-
-      - run:
-          name: Context Info Cmds
-          command: pwd && ls -ltra && git branch
-
-      - run:
-          name: Initialize Repo Makefiles
-          command: |
-            make init-makefiles
-            git update-index --assume-unchanged "Makefile"
-
-      - run:
-          name: Release New Version
-          command: |
-            if git status | grep 'nothing to commit, working tree clean'; then
-              echo "==============================================================================================="
-              echo "release-$VERSION_NUMBER-with-changelog-circleci"
-              echo "==============================================================================================="
-              git config --global user.email "$GIT_USER_EMAIL"
-              git config --global user.name "$GIT_USER_NAME"
-              make release-$VERSION_NUMBER-with-changelog-circleci
-            else
-              echo "==============================================================================================="
-              echo "Changes in working directory pending to be pushed - please check 'git status' cmd output below "
-              echo "==============================================================================================="
-              echo "$(git status)"
-              echo "==============================================================================================="
-            fi
 
       - slack/notify:
           event: fail
@@ -210,14 +168,6 @@ workflows:
                - master
       - push-images:
           context: binbashar-org-global-context
-          filters:
-            branches:
-             only: # only branches matching the below regex filters will run
-               - master
-      - release-version-with-changelog:
-          context: binbashar-org-global-context
-          requires:
-            - push-images
           filters:
             branches:
              only: # only branches matching the below regex filters will run
