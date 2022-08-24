@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.0.2"></a>
+## [1.2.7-0.0.2] - 2022-08-24
+
+- Issue 9 - check version bump before pr ([#11](https://github.com/binbashar/public-docker-images/issues/11))
+
+
 <a name="1.2.7-0.0.1"></a>
 ## 1.2.7-0.0.1 - 2022-08-24
 
@@ -33,4 +39,5 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/public-docker-images/compare/1.2.7-0.0.1...HEAD
+[Unreleased]: https://github.com/binbashar/public-docker-images/compare/1.2.7-0.0.2...HEAD
+[1.2.7-0.0.2]: https://github.com/binbashar/public-docker-images/compare/1.2.7-0.0.1...1.2.7-0.0.2
