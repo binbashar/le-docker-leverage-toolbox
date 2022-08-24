@@ -27,7 +27,7 @@ AWS_DOCKER_ENTRYPOINT := aws
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
 TERRAFORM_TAG    := 1.2.7
-LEVERAGE_CLI_TAG := 0.0.1
+LEVERAGE_CLI_TAG := 0.0.2
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
@@ -79,7 +79,7 @@ init-makefiles: ## initialize makefiles
 #==============================================================#
 # DOCKER | BUILD ALL IMAGES                                    #
 #==============================================================#
-build-all: setver build clearver ## build all docker images
+build-all: check-version-bumping setver build clearver ## build all docker images
 
 #==============================================================#
 # DOCKER | TEST ALL IMAGES                                     #
