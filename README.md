@@ -133,3 +133,6 @@ make build-local
 make test-local
 ```
 
+# TODO List
+
+- [TODO] [2022/08/25] Check CircleCI-Slack connection
