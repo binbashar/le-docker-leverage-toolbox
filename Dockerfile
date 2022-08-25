@@ -1,4 +1,6 @@
-FROM hashicorp/terraform:TERRAFORM_VERSION
+ARG TERRAFORM_VERSION
+
+FROM hashicorp/terraform:${TERRAFORM_VERSION}
 
 LABEL vendor="Binbash Leverage (info@binbash.com.ar)"
 

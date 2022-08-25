@@ -27,13 +27,18 @@ AWS_DOCKER_ENTRYPOINT := aws
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
 TERRAFORM_TAG    := 1.2.7
-LEVERAGE_CLI_TAG := 0.0.2
+LEVERAGE_CLI_TAG := 0.0.3
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
 # ###############################################################
 
 CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
+
+#
+# ADDITIONAL ARGS FOR THE DOCKER BUILD PROCESS
+#
+ADDITIONAL_DOCKER_ARGS := "TERRAFORM_VERSION='${TERRAFORM_TAG}'"
 
 #
 # GIT-RELEASE
@@ -79,12 +84,14 @@ init-makefiles: ## initialize makefiles
 #==============================================================#
 # DOCKER | BUILD ALL IMAGES                                    #
 #==============================================================#
-build-all: check-version-bumping setver build clearver ## build all docker images
+build-all: check-version-bumping build ## build all docker images
+build-local: build ## build all docker images
 
 #==============================================================#
 # DOCKER | TEST ALL IMAGES                                     #
 #==============================================================#
 test-all: build-all test ## build all docker images
+test-local: build-local test ## build all docker images
 
 #==============================================================#
 # DOCKER | BUILD AND PUSH ALL IMAGES                           #
@@ -123,27 +130,6 @@ else
 	@echo "Verion bumped from $(CURRENT_TAG) to ${DOCKER_TAG}"
 endif
 endif
-
-#
-# docker settings
-#
-setver: ## set version
-	@echo ${DOCKER_TAG} && \
-	cp Dockerfile.template Dockerfile && \
-	sed -i -E 's/TERRAFORM_VERSION/'${TERRAFORM_TAG}'/' Dockerfile
-
-setbuildx:
-	docker run --privileged --rm tonistiigi/binfmt --install all && \
-	docker buildx create --name container --driver docker-container && \
-	docker buildx build --load \
-		--builder=container \
-		-t ${DOCKER_REPO_NAME}/${DOCKER_IMG_NAME}:${DOCKER_TAG} \
-		--build-arg DOCKER_TAG='${DOCKER_TAG}' .
-
-clearver: ## clear version files
-	@echo "Deleting Dockerfile for ${DOCKER_TAG}..." && \
-	rm Dockerfile && \
-	docker buildx rm container
 
 #==============================================================#
 # TESTS														   #
