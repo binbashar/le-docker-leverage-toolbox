@@ -32,9 +32,11 @@
 - [**releases**](https://github.com/binbashar/le-docker-leverage/releases) 
 - [**changelog**](https://github.com/binbashar/le-docker-leverage/blob/master/CHANGELOG.md) 
 
-# Versioning process
+# Version bumping process
 
-*This process will be automated.*
+*This process will be automated in the furure.*
+
+For now is manual, but there is a check, when image built is requested, verifying whether or not the version was bumped.
 
 Container image tagging or versioning process is as follows:
 
@@ -62,5 +64,72 @@ Another example, e.g., given image *binbash/leverage-toolbox:1.2.1-0.5.3*:
 - If Terraform is updated then LEVERAGE_TOOLBOX_IMAGE_VERSION is reset and TERRAFORM_VERSION is bumped accordingly to the Terraform version, e.g.:
   - *binbash/leverage-toolbox:1.2.2-0.0.1* or *binbash/leverage-toolbox:1.3.0-0.0.1*
 
+## Where to change it?
+
+In the `Makefile`:
+
+``` shell
+# ###############################################################
+# TERRAFORM AND CLI VERSIONS                                    #
+# ###############################################################
+# The LEVERAGE_CLI_TAG should be set per TERRAFORM_TAG
+# e.g. if you have TERRA 1.2.1 and LEVERAGE 0.0.1 and
+# you update some script other that terraform in the image
+# the LEVERAGE tag should be upgraded, let's say tp 0.0.2
+# But if then you update the terraform tag to 1.3.0 the
+# LEVERAGE tag should be resetted to bu used under this new
+# terraform tag, e.g. 1.3.0 and 0.0.1
+# The resulting images should be:
+# 1.2.1-0.0.1
+# 1.2.1-0.0.2
+# 1.3.0-0.0.1
+TERRAFORM_TAG    := 1.2.7
+LEVERAGE_CLI_TAG := 0.0.2
+```
 
 **NOTE** In any case, as a rule of thumb no version (tag) has to be pushed into the image repository if it already exists there.
+
+# Dev and Deploy
+
+The container image components are, basically, the `Dockerfile` and the `scripts/*`.
+
+Then, there is a Makefile and a few other configuration files for tools.
+
+*Note* for an image to be built the version (a.k.a. the image tag) has to change!
+
+## Pipelines
+
+CircleCi pipelines are being used.
+
+There are two basic pipelines: SumoLogic tests and BuildDeploy.
+
+The first one will be triggered in any modification.
+
+The second one, will be only when `Dockerfile`, `scripts/*` or `Makefile` are changed.
+
+## Basic Procedure
+
+- 1. create your working branch
+- 2. do your changes
+- 3. if any of `Dockerfile`, `scripts/*` or `Makefile` were modified then bump the version
+- 4. create a PR (add labels!)
+- 5. merge the PR
+
+If none of the files listed in 3 were modified (e.g. only README.md changed), the PR can be merged and no image will be deployed.
+
+Finally the image can be found [here](https://hub.docker.com/r/binbash/leverage-toolbox/tags).
+
+# Working locally
+
+Requirements: some container engine up and running.
+
+``` shell
+git clone git@github.com:binbashar/le-docker-leverage-toolbox.git
+cd le-docker-leverage-toolbox
+make init-makefiles
+# only for building the image
+make build-local
+# or just for testing
+make test-local
+```
+
