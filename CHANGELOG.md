@@ -7,10 +7,18 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.0.3"></a>
+## [1.2.7-0.0.3] - 2022-08-25
+
+- ISSUE-4 Master pipeline fixed ([#14](https://github.com/binbashar/le-docker-leverage-toolbox/issues/14))
+- Issue 4 enhancement - refactor repo ([#13](https://github.com/binbashar/le-docker-leverage-toolbox/issues/13))
+- Issue 9 fix chglog setup ([#12](https://github.com/binbashar/le-docker-leverage-toolbox/issues/12))
+
+
 <a name="1.2.7-0.0.2"></a>
 ## [1.2.7-0.0.2] - 2022-08-24
 
-- Issue 9 - check version bump before pr ([#11](https://github.com/binbashar/public-docker-images/issues/11))
+- Issue 9 - check version bump before pr ([#11](https://github.com/binbashar/le-docker-leverage-toolbox/issues/11))
 
 
 <a name="1.2.7-0.0.1"></a>
@@ -39,5 +47,6 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/public-docker-images/compare/1.2.7-0.0.2...HEAD
-[1.2.7-0.0.2]: https://github.com/binbashar/public-docker-images/compare/1.2.7-0.0.1...1.2.7-0.0.2
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.3...HEAD
+[1.2.7-0.0.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.2...1.2.7-0.0.3
+[1.2.7-0.0.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.1...1.2.7-0.0.2
