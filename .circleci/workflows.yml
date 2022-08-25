@@ -183,8 +183,9 @@ workflows:
                - master
   sumo_test:
     when:
-    - << pipeline.parameters.not-image-related >>
-    - << pipeline.parameters.image-data-modified >>
+        or:
+        - << pipeline.parameters.not-image-related >>
+        - << pipeline.parameters.image-data-modified >>
     jobs:
       - sumologic/workflow-collector:
           context: binbashar-org-global-context
