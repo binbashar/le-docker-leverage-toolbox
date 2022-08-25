@@ -85,7 +85,3 @@ Thumbs.db
 #################################
 /@bin
 !/mysql-client/example-test/create_table.sql
-
-# Since we are using a template #
-#################################
-Dockerfile
