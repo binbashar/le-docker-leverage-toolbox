@@ -96,7 +96,7 @@ test-local: build-local test ## build all docker images
 #==============================================================#
 # DOCKER | BUILD AND PUSH ALL IMAGES                           #
 #==============================================================#
-push-all: check-version-bumping setver push clearver create-changelog ## build all docker images
+push-all: check-version-bumping push create-changelog ## build all docker images
 
 #==============================================================#
 # DOCKER | GENERATE CHANGELOG                                  #
