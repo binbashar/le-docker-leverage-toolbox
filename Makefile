@@ -2,7 +2,7 @@
 SHELL         := /bin/bash
 MAKEFILE_PATH := ./Makefile
 MAKEFILES_DIR := ./@bin/makefiles
-MAKEFILES_VER := v0.2.9
+MAKEFILES_VER := v0.2.12
 
 LOCAL_OS_USER_ID      = $(shell id -u)
 LOCAL_OS_GROUP_ID     = $(shell id -g)
@@ -27,10 +27,14 @@ AWS_DOCKER_ENTRYPOINT := aws
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
 TERRAFORM_TAG    := 1.2.7
-LEVERAGE_CLI_TAG := 0.0.3
+LEVERAGE_CLI_TAG := 0.0.4
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
+#
+# ADDITIONAL TAGS FOR THE DOCKER BUILD PROCESS
+#
+ADDITIONAL_TAGS  := ${TERRAFORM_TAG}-latest
 # ###############################################################
 
 CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
