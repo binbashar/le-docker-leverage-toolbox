@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.0.4"></a>
+## [1.2.7-0.0.4] - 2022-10-17
+
+- ISSUE-17 added additional tags ([#18](https://github.com/binbashar/le-docker-leverage-toolbox/issues/18))
+- ToDo list creation ([#15](https://github.com/binbashar/le-docker-leverage-toolbox/issues/15))
+
+
 <a name="1.2.7-0.0.3"></a>
 ## [1.2.7-0.0.3] - 2022-08-25
 
@@ -47,6 +54,7 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.3...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.4...HEAD
+[1.2.7-0.0.4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.3...1.2.7-0.0.4
 [1.2.7-0.0.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.2...1.2.7-0.0.3
 [1.2.7-0.0.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.1...1.2.7-0.0.2
