@@ -12,11 +12,11 @@ workflows:
           base-revision: master
           mapping: |
             Dockerfile.template image-data-modified true
-            scripts/* image-data-modified true
+            scripts/.* image-data-modified true
             Makefile image-data-modified true
             README.md not-image-related true
-            @doc/* not-image-related true
-            .chglog/* not-image-related true
-            .circleci/* not-image-related true
-            .github/* not-image-related true
+            @doc/.* not-image-related true
+            .chglog/.* not-image-related true
+            .circleci/.* not-image-related true
+            .github/.* not-image-related true
           config-path: .circleci/workflows.yml
