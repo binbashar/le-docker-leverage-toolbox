@@ -199,7 +199,7 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             debug "Found cached credentials in ${BOLD}$TEMP_FILE${RESET}"
 
             # Get expiration date/timestamp
-            EXPIRATION_DATE=$(echo "$EXPIRATION_DATE" | sed -e 's/T/ /' | sed -e 's/Z//')
+            EXPIRATION_DATE=$(echo "$EXPIRATION_DATE" | sed -e 's/T/ /' | sed -E 's/(Z|\+[0-9]{2}:[0-9]{2})$//')
             debug "${BOLD}EXPIRATION_DATE=${RESET}$EXPIRATION_DATE"
             EXPIRATION_TS=`date -d "$EXPIRATION_DATE" +"%s" || date +"%s"`
             debug "${BOLD}EXPIRATION_TS=${RESET}$EXPIRATION_TS"
