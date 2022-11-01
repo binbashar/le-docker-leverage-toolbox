@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.0.5"></a>
+## [1.2.7-0.0.5] - 2022-11-01
+
+- ISSUE-19 Added regex to handle the +00:00 time zone date case ([#20](https://github.com/binbashar/le-docker-leverage-toolbox/issues/20))
+
+
 <a name="1.2.7-0.0.4"></a>
 ## [1.2.7-0.0.4] - 2022-10-17
 
@@ -54,7 +60,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.4...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.5...HEAD
+[1.2.7-0.0.5]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.4...1.2.7-0.0.5
 [1.2.7-0.0.4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.3...1.2.7-0.0.4
 [1.2.7-0.0.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.2...1.2.7-0.0.3
 [1.2.7-0.0.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.1...1.2.7-0.0.2
