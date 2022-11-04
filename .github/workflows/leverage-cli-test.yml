@@ -12,7 +12,7 @@ jobs:
       - name: Clone RefArch
         run: |
           printf "[INFO] Cloning RefArch"
-          git clone git@github.com:binbashar/le-tf-infra-aws.git ./refarch
+          git clone https://github.com/binbashar/le-tf-infra-aws.git ./refarch
 
 
       - name: Build and reference Toolbox Image
