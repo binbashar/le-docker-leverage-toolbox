@@ -42,6 +42,7 @@ jobs:
           printf "[INFO] Installing CLI\n"
           python --version
           pip install leverage
+          # this is a workaround until the version for this toolbox is on the wild
           pip install -i https://test.pypi.org/simple/ leverage==1.8.1rc2
 
       - name: Set up credentials
