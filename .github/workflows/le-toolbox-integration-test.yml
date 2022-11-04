@@ -1,4 +1,4 @@
-name: Leverage CLI Test
+name: Leverage Toolbox Integration Test
 
 on: [pull_request]
 
