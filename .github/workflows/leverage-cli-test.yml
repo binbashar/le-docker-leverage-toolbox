@@ -40,6 +40,7 @@ jobs:
       - name: Install CLI
         run: |
           printf "[INFO] Installing CLI\n"
+          python --version
           pip install -i https://test.pypi.org/simple/ leverage==1.8.1rc2
 
       - name: Set up credentials
