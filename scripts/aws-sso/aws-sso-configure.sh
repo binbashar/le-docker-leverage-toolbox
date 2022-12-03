@@ -35,6 +35,7 @@ PROJECT=$(hcledit -f "$COMMON_CONFIG_FILE" attribute get project | sed 's/"//g')
 SSO_PROFILE_NAME=${SSO_PROFILE_NAME:-$PROJECT-sso}
 SSO_ROLE_NAME=${SSO_ROLE_NAME:-$(hcledit -f "$ACCOUNT_CONFIG_FILE" attribute get sso_role | sed 's/"//g')}
 SSO_CACHE_DIR=${SSO_CACHE_DIR:-/root/tmp/$PROJECT/sso/cache}
+SSO_TOKEN_FILE_NAME='token'
 debug "SCRIPT_LOG_LEVEL=$SCRIPT_LOG_LEVEL"
 debug "COMMON_CONFIG_FILE=$COMMON_CONFIG_FILE"
 debug "ACCOUNT_CONFIG_FILE=$ACCOUNT_CONFIG_FILE"
@@ -42,11 +43,12 @@ debug "BACKEND_CONFIG_FILE=$BACKEND_CONFIG_FILE"
 debug "SSO_PROFILE_NAME=$SSO_PROFILE_NAME"
 debug "SSO_ROLE_NAME=$SSO_ROLE_NAME"
 debug "SSO_CACHE_DIR=$SSO_CACHE_DIR"
+debug "SSO_TOKEN_FILE_NAME=$SSO_TOKEN_FILE_NAME"
 
 # -----------------------------------------------------------------------------
 # Configure accounts profiles
 # -----------------------------------------------------------------------------
-TOKEN=$(jq -r '.accessToken' "$SSO_CACHE_DIR/$SSO_ROLE_NAME")
+TOKEN=$(jq -r '.accessToken' "$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME")
 ACCOUNTS=$(aws sso list-accounts --access-token "$TOKEN")
 debug "Accounts: $(echo "$ACCOUNTS" | jq -c '.')"
 

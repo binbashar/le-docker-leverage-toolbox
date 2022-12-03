@@ -29,10 +29,14 @@ RUN rm /var/cache/apk/*
 # Download and install glibc
 # NOTE: Keep an eye on the issue https://github.com/aws/aws-cli/pull/6352 regarding installation of the AWS CLI from source in order to avoid
 # the need of installing glibc
+# With newer versions of Alpine (e.g. 3.16, used in Terraform 1.3.5 container image) this error can show up:
+# ERROR: glibc-2.34-r0: trying to overwrite etc/nsswitch.conf owned by alpine-baselayout-data-3.2.0-r23
+# if this happen, use the --force-overwrite flag in apk add
+# issue here https://github.com/sgerrand/alpine-pkg-glibc/issues/185
 RUN curl -sL "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" -o /etc/apk/keys/sgerrand.rsa.pub \
         && curl -sLO "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" \
         && curl -sLO "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
-        && apk add --no-cache \
+        && apk add --no-cache --force-overwrite \
         glibc-${GLIBC_VERSION}.apk \
         glibc-bin-${GLIBC_VERSION}.apk \
         && rm glibc-${GLIBC_VERSION}.apk glibc-bin-${GLIBC_VERSION}.apk
@@ -65,4 +69,11 @@ RUN curl -LO "https://github.com/minamijoyo/hcledit/releases/download/v${HCLEDIT
         && tar -xzf hcledit_${HCLEDIT_VERSION}_linux_amd64.tar.gz hcledit -C /usr/local/bin \
         && rm hcledit_${HCLEDIT_VERSION}_linux_amd64.tar.gz
 
+# Install tfautomv
+ARG TFAUTOMV_VERSION="0.5.0"
+RUN curl -LO "https://github.com/padok-team/tfautomv/releases/download/v${TFAUTOMV_VERSION}/tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz" \
+    && tar -xvf tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz \
+    && chmod +x tfautomv \
+    && mv tfautomv /usr/local/bin/tfautomv \
+    && rm tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz
 ENTRYPOINT ["terraform"]

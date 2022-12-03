@@ -36,6 +36,7 @@ SSO_PROFILE_NAME=${SSO_PROFILE_NAME:-$PROJECT-sso}
 SSO_ROLE_NAME=${SSO_ROLE_NAME:-$(hcledit -f "$ACCOUNT_CONFIG_FILE" attribute get sso_role | sed 's/"//g')}
 SSO_CACHE_DIR=${SSO_CACHE_DIR:-/root/tmp/$PROJECT/sso/cache}
 AWS_SSO_CACHE_DIR=/root/.aws/sso/cache
+SSO_TOKEN_FILE_NAME='token'
 debug "SCRIPT_LOG_LEVEL=$SCRIPT_LOG_LEVEL"
 debug "COMMON_CONFIG_FILE=$COMMON_CONFIG_FILE"
 debug "ACCOUNT_CONFIG_FILE=$ACCOUNT_CONFIG_FILE"
@@ -43,6 +44,7 @@ debug "BACKEND_CONFIG_FILE=$BACKEND_CONFIG_FILE"
 debug "SSO_PROFILE_NAME=$SSO_PROFILE_NAME"
 debug "SSO_ROLE_NAME=$SSO_ROLE_NAME"
 debug "SSO_CACHE_DIR=$SSO_CACHE_DIR"
+debug "SSO_TOKEN_FILE_NAME=$SSO_TOKEN_FILE_NAME"
 
 # Make sure cache dir exists
 mkdir -p "$SSO_CACHE_DIR"
@@ -55,7 +57,7 @@ aws sso login --profile "$SSO_PROFILE_NAME"
 
 # Store token in cache
 debug "Caching token for role $BOLD$SSO_ROLE_NAME$RESET"
-TOKEN_FILE="$SSO_CACHE_DIR/$SSO_ROLE_NAME"
+TOKEN_FILE="$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME"
 find "$AWS_SSO_CACHE_DIR" -maxdepth 1 -type f -name '*.json' -not -name 'botocore-client*' -exec cp {} "$TOKEN_FILE" \;
 debug "Token Expiration: $BOLD$(jq -r '.expiresAt' "$TOKEN_FILE")$RESET"
 
