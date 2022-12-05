@@ -85,7 +85,7 @@ jobs:
             then
               make push-all LEVERAGE_CLI_TAG=alpha;
             else
-              if [[ ${CIRCLE_BRANCH} == 'beta* ]];
+              if [[ ${CIRCLE_BRANCH} == 'beta'* ]];
               then
                 make push-all LEVERAGE_CLI_TAG=beta;
               else
