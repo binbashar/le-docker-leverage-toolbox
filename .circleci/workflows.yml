@@ -80,7 +80,20 @@ jobs:
 
       - run:
           name: Build && Push docker images
-          command: make push-all
+          command: |
+            if [[ ${CIRCLE_BRANCH} == 'alpha'* ]];
+            then
+              make push-all LEVERAGE_CLI_TAG=alpha;
+            else
+              if [[ ${CIRCLE_BRANCH} == 'beta* ]];
+              then
+                make push-all LEVERAGE_CLI_TAG=beta;
+              else
+                make push-all;
+              fi
+
+            fi
+
           no_output_timeout: 30m
 
       - slack/notify:
@@ -181,6 +194,8 @@ workflows:
             branches:
              only: # only branches matching the below regex filters will run
                - master
+               - /^alpha.+/
+               - /^beta.+/
   sumo_test:
     when:
         or:
