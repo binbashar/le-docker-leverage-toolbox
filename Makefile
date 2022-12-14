@@ -136,7 +136,7 @@ ifeq ($(CURRENT_TAG),$(DOCKER_TAG))
 	@echo 'Version not bumped'; \
 	exit 1
 else
-	@echo "Verion bumped to ${DOCKER_TAG}"
+	@echo "Version bumped to ${DOCKER_TAG}"
 endif
 endif
 
