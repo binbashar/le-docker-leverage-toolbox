@@ -92,7 +92,8 @@ jobs:
       - run:
           name: Build && Push docker images
           command: |
-            make push-all;
+            LOCALVER=($(echo "<< parameters.ver >>" | tr '-' ' '))
+            make push-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
 
           no_output_timeout: 30m
 
