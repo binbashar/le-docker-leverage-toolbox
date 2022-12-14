@@ -19,6 +19,11 @@ jobs:
       # This job has been blocked because Docker Layer Caching is not available on your plan.
       # Should upgrade if necessary.
       docker_layer_caching: false
+    parameters:
+      ver:
+        type: string
+    environment:
+      VER: << parameters.ver >>
 
     steps:
       - checkout
@@ -39,12 +44,16 @@ jobs:
 
       - run:
           name: Build docker images
-          command: make build-all
+          command: |
+            LOCALVER=($(echo $VER | tr '-' ' '))
+            make build-all LEVERAGE_CLI_TAG=${LOCALVER[2]} TERRAFORM_TAG=${LOCALVER[1]}
           no_output_timeout: 30m
 
       - run:
           name: Run docker images tests
-          command: make test-all
+          command: |
+            LOCALVER=($(echo $VER | tr '-' ' '))
+            make test-all LEVERAGE_CLI_TAG=${LOCALVER[2]} TERRAFORM_TAG=${LOCALVER[1]}
 
   #
   # Push docker images
@@ -81,18 +90,7 @@ jobs:
       - run:
           name: Build && Push docker images
           command: |
-            if [[ ${CIRCLE_BRANCH} == 'alpha'* ]];
-            then
-              make push-all LEVERAGE_CLI_TAG=alpha;
-            else
-              if [[ ${CIRCLE_BRANCH} == 'beta* ]];
-              then
-                make push-all LEVERAGE_CLI_TAG=beta;
-              else
-                make push-all;
-              fi
-
-            fi
+            make push-all;
 
           no_output_timeout: 30m
 
@@ -188,14 +186,22 @@ workflows:
             branches:
              ignore: # only branches matching the below regex filters will run
                - master
+          matrix:
+            parameters:
+              ver:
+                - 1.2.7-test
+                - 1.3.5-test
       - push-images:
           context: binbashar-org-global-context
           filters:
             branches:
              only: # only branches matching the below regex filters will run
                - master
-               - /^alpha.+/
-               - /^beta.+/
+          matrix:
+            parameters:
+              ver:
+                - 1.2.7-0.0.6
+                - 1.3.5-0.0.1
   sumo_test:
     when:
         or:

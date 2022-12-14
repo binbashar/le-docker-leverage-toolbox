@@ -50,11 +50,13 @@ rm -f $SSO_CACHE_DIR/*
 
 # Clear AWS CLI credentials
 debug "Wiping current SSO credentials."
-if PROFILES=$(aws configure list-profiles | grep -v default | grep -v "^$PROJECT-sso"); then
-    while IFS= read -r profile; do
-        sed -i "/$profile/,+1 d" "$AWS_CONFIG_FILE" # Delete expiration record for profile
-    done <<< "$PROFILES"
-fi
+#if PROFILES=$(aws configure list-profiles | grep -v default | grep -v "^$PROJECT-sso"); then
+#    while IFS= read -r profile; do
+#        sed -i "/$profile/,+1 d" "$AWS_CONFIG_FILE" # Delete expiration record for profile
+#    done <<< "$PROFILES"
+#fi
+awk '/^\[profile/{if($0~/profile '"$PROJECT-sso"'/){found=1}else{found=""}} !found' "$AWS_CONFIG_FILE" > aws2 && mv aws2 "$AWS_CONFIG_FILE"
+
 rm -f "$AWS_SHARED_CREDENTIALS_FILE"
 
 debug "All credentials wiped!"

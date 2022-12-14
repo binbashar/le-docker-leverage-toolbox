@@ -123,7 +123,7 @@ for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
     if ! PROFILE_CREDENTIALS=$(aws --output json sso get-role-credentials \
                                                         --role-name "$SSO_ROLE_NAME" \
                                                         --account-id "$ACCOUNT_ID" \
-                                                        --access-token "$SSO_ACCESS_TOKEN"); then
+                                                        --access-token "$SSO_ACCESS_TOKEN" 2>&1); then
         error "Unable to get valid credentials for role $BOLD$SSO_ROLE_NAME$RESET in account $BOLD$ACCOUNT$RESET.\nPlease check SSO configuration."
         exit 50
     fi

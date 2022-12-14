@@ -47,18 +47,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}
         && ./aws/install \
         && rm -rf awscliv2.zip aws
 
-# Add aws-mfa script
-RUN mkdir -p /root/scripts/aws-mfa
-COPY ./scripts/aws-mfa/aws-mfa-entrypoint.sh  /root/scripts/aws-mfa/aws-mfa-entrypoint.sh
-# Add aws-sso scripts
-RUN mkdir -p /root/scripts/aws-sso
-COPY ./scripts/aws-sso/aws-sso-configure.sh  /root/scripts/aws-sso/aws-sso-configure.sh
-COPY ./scripts/aws-sso/aws-sso-login.sh  /root/scripts/aws-sso/aws-sso-login.sh
-COPY ./scripts/aws-sso/aws-sso-logout.sh  /root/scripts/aws-sso/aws-sso-logout.sh
-COPY ./scripts/aws-sso/aws-sso-entrypoint.sh  /root/scripts/aws-sso/aws-sso-entrypoint.sh
-
-RUN chmod -R +x /root/scripts/
-
 # Add aws-vault
 RUN curl -LO "https://github.com/99designs/aws-vault/releases/download/${AWSVAULT_VERSION}/aws-vault-linux-amd64" \
         && chmod +x aws-vault-linux-amd64 \
@@ -76,4 +64,17 @@ RUN curl -LO "https://github.com/padok-team/tfautomv/releases/download/v${TFAUTO
     && chmod +x tfautomv \
     && mv tfautomv /usr/local/bin/tfautomv \
     && rm tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz
+
+# Add aws-mfa script
+RUN mkdir -p /root/scripts/aws-mfa
+COPY ./scripts/aws-mfa/aws-mfa-entrypoint.sh  /root/scripts/aws-mfa/aws-mfa-entrypoint.sh
+# Add aws-sso scripts
+RUN mkdir -p /root/scripts/aws-sso
+COPY ./scripts/aws-sso/aws-sso-configure.sh  /root/scripts/aws-sso/aws-sso-configure.sh
+COPY ./scripts/aws-sso/aws-sso-login.sh  /root/scripts/aws-sso/aws-sso-login.sh
+COPY ./scripts/aws-sso/aws-sso-logout.sh  /root/scripts/aws-sso/aws-sso-logout.sh
+COPY ./scripts/aws-sso/aws-sso-entrypoint.sh  /root/scripts/aws-sso/aws-sso-entrypoint.sh
+
+RUN chmod -R +x /root/scripts/
+
 ENTRYPOINT ["terraform"]
