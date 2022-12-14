@@ -45,14 +45,14 @@ jobs:
           name: Build docker images
           command: |
             LOCALVER=($(echo "<< parameters.ver >>" | tr '-' ' '))
-            make build-all LEVERAGE_CLI_TAG=${LOCALVER[2]} TERRAFORM_TAG=${LOCALVER[1]}
+            make build-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
           no_output_timeout: 30m
 
       - run:
           name: Run docker images tests
           command: |
             LOCALVER=($(echo $VER | tr '-' ' '))
-            make test-all LEVERAGE_CLI_TAG=${LOCALVER[2]} TERRAFORM_TAG=${LOCALVER[1]}
+            make test-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
 
   #
   # Push docker images

@@ -37,7 +37,8 @@ DOCKER_IMG_NAME  := leverage-toolbox
 ADDITIONAL_TAGS  := ${TERRAFORM_TAG}-latest
 # ###############################################################
 
-CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
+#CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
+CURRENT_TAG      := $(shell git tag | grep ${DOCKER_TAG})
 
 #
 # ADDITIONAL ARGS FOR THE DOCKER BUILD PROCESS
@@ -131,7 +132,7 @@ ifeq ($(CURRENT_TAG),$(DOCKER_TAG))
 	@echo 'Version not bumped'; \
 	exit 1
 else
-	@echo "Verion bumped from $(CURRENT_TAG) to ${DOCKER_TAG}"
+	@echo "Verion bumped to ${DOCKER_TAG}"
 endif
 endif
 
