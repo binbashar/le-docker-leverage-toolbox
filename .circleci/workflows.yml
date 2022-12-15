@@ -38,27 +38,13 @@ jobs:
           command: docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
 
       - run:
-          name: Build docker images
-          command: |
-            for v in $(cat versions_to_build ) ;
-            do
-                if [[ ! "$v" =~ ^#.* ]];
-                then
-                  echo "Building $v...";
-                  LOCALVER=($(echo "$v" | tr '-' ' '))
-                  make build-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
-                fi
-            done
-          no_output_timeout: 30m
-
-      - run:
           name: Run docker images tests
           command: |
             for v in $(cat versions_to_build ) ;
             do
                 if [[ ! "$v" =~ ^#.* ]];
                 then
-                  echo "Building $v...";
+                  echo "Building and testing $v...";
                   LOCALVER=($(echo "$v" | tr '-' ' '))
                   make test-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
                 fi
