@@ -42,9 +42,12 @@ jobs:
           command: |
             for v in $(cat versions_to_build ) ;
             do
-                echo "Building $v...";
-                LOCALVER=($(echo "$v" | tr '-' ' '))
-                make build-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
+                if [[ ! "$v" =~ ^#.* ]];
+                then
+                  echo "Building $v...";
+                  LOCALVER=($(echo "$v" | tr '-' ' '))
+                  make build-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
+                fi
             done
           no_output_timeout: 30m
 
@@ -53,9 +56,12 @@ jobs:
           command: |
             for v in $(cat versions_to_build ) ;
             do
-                echo "Building $v...";
-                LOCALVER=($(echo "$v" | tr '-' ' '))
-                make test-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
+                if [[ ! "$v" =~ ^#.* ]];
+                then
+                  echo "Building $v...";
+                  LOCALVER=($(echo "$v" | tr '-' ' '))
+                  make test-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
+                fi
             done
 
   #
@@ -95,9 +101,12 @@ jobs:
           command: |
             for v in $(cat versions_to_build ) ;
             do
-                echo "Building $v...";
-                LOCALVER=($(echo "$v" | tr '-' ' '))
-                make push-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
+                if [[ ! "$v" =~ ^#.* ]];
+                then
+                  echo "Building $v...";
+                  LOCALVER=($(echo "$v" | tr '-' ' '))
+                  make push-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TERRAFORM_TAG=${LOCALVER[0]}
+                fi
             done
 
           no_output_timeout: 30m
