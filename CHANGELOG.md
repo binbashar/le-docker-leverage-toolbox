@@ -7,6 +7,21 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.0.rc1"></a>
+## [1.2.7-0.1.0.rc1] - 2022-12-15
+
+- Issue 141 adding tfautomv ([#23](https://github.com/binbashar/le-docker-leverage-toolbox/issues/23))
+- ISSUE-135 Added basic tests ([#21](https://github.com/binbashar/le-docker-leverage-toolbox/issues/21))
+
+
+<a name="1.3.5-alpha"></a>
+## [1.3.5-alpha] - 2022-12-05
+
+- ISSUE-141 fixing missing quote
+- ISSUE-141 adding path to deploy beta and alpha images
+- ISSUE-1 added tfautomv, terraform version updated, sso modified to use just one cache file
+
+
 <a name="1.2.7-0.0.5"></a>
 ## [1.2.7-0.0.5] - 2022-11-01
 
@@ -60,7 +75,9 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.5...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0.rc1...HEAD
+[1.2.7-0.1.0.rc1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-alpha...1.2.7-0.1.0.rc1
+[1.3.5-alpha]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.5...1.3.5-alpha
 [1.2.7-0.0.5]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.4...1.2.7-0.0.5
 [1.2.7-0.0.4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.3...1.2.7-0.0.4
 [1.2.7-0.0.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.2...1.2.7-0.0.3
