@@ -39,7 +39,13 @@ DOCKER_IMG_NAME  := leverage-toolbox
 #
 # ADDITIONAL TAGS FOR THE DOCKER BUILD PROCESS
 #
-ADDITIONAL_TAGS  := ${TERRAFORM_TAG}-latest
+ifeq ($(shell echo ${LEVERAGE_CLI_TAG} | egrep "\.rc[0-9]+$"),)
+	@echo "Adding tag ${TERRAFORM_TAG}-latest"
+	ADDITIONAL_TAGS  := ${TERRAFORM_TAG}-latest
+else
+	@echo "Adding no tags"
+	ADDITIONAL_TAGS  := ""
+endif
 # ###############################################################
 
 #CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
