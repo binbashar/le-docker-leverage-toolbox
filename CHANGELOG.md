@@ -7,6 +7,11 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.3.5-0.0.1.rc2"></a>
+## [1.3.5-0.0.1.rc2] - 0001-01-01
+
+
+
 <a name="1.2.7-0.1.0.rc2"></a>
 ## [1.2.7-0.1.0.rc2] - 2022-12-15
 
@@ -81,7 +86,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0.rc2...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc2...HEAD
+[1.3.5-0.0.1.rc2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0.rc2...1.3.5-0.0.1.rc2
 [1.2.7-0.1.0.rc2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0.rc1...1.2.7-0.1.0.rc2
 [1.2.7-0.1.0.rc1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-alpha...1.2.7-0.1.0.rc1
 [1.3.5-alpha]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.0.5...1.3.5-alpha
