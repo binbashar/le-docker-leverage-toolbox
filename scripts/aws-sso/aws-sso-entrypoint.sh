@@ -36,6 +36,7 @@ PROFILE=$(hcledit -f "$BACKEND_CONFIG_FILE" attribute get profile | sed 's/"//g'
 SSO_PROFILE_NAME=${SSO_PROFILE_NAME:-$PROJECT-sso}
 SSO_ROLE_NAME=${SSO_ROLE_NAME:-$(hcledit -f "$ACCOUNT_CONFIG_FILE" attribute get sso_role | sed 's/"//g')}
 SSO_CACHE_DIR=${SSO_CACHE_DIR:-/root/tmp/$PROJECT/sso/cache}
+SSO_TOKEN_FILE_NAME='token'
 debug "SCRIPT_LOG_LEVEL=$SCRIPT_LOG_LEVEL"
 debug "COMMON_CONFIG_FILE=$COMMON_CONFIG_FILE"
 debug "ACCOUNT_CONFIG_FILE=$ACCOUNT_CONFIG_FILE"
@@ -43,6 +44,7 @@ debug "BACKEND_CONFIG_FILE=$BACKEND_CONFIG_FILE"
 debug "SSO_PROFILE_NAME=$SSO_PROFILE_NAME"
 debug "SSO_ROLE_NAME=$SSO_ROLE_NAME"
 debug "SSO_CACHE_DIR=$SSO_CACHE_DIR"
+debug "SSO_TOKEN_FILE_NAME=$SSO_TOKEN_FILE_NAME"
 
 
 # -----------------------------------------------------------------------------
@@ -87,7 +89,7 @@ debug "${BOLD}Terraform${RESET} relevant profiles: ${TF_PROFILES[*]}"
 # -----------------------------------------------------------------------------
 # Get credentials for the layer
 # -----------------------------------------------------------------------------
-SSO_ACCESS_TOKEN=$(jq -r '.accessToken' "$SSO_CACHE_DIR/$SSO_ROLE_NAME") # Token obtained during login
+SSO_ACCESS_TOKEN=$(jq -r '.accessToken' "$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME") # Token obtained during login
 ACCS_TO_GET_CREDENTIALS=( $(echo "${!ACCS_IAM_ROLES[@]}" | tr ' ' '\n' | sort) )
 for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
     info "Attempting to get temporary credentials for $BOLD$ACCOUNT$RESET account."
@@ -121,7 +123,7 @@ for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
     if ! PROFILE_CREDENTIALS=$(aws --output json sso get-role-credentials \
                                                         --role-name "$SSO_ROLE_NAME" \
                                                         --account-id "$ACCOUNT_ID" \
-                                                        --access-token "$SSO_ACCESS_TOKEN"); then
+                                                        --access-token "$SSO_ACCESS_TOKEN" 2>&1); then
         error "Unable to get valid credentials for role $BOLD$SSO_ROLE_NAME$RESET in account $BOLD$ACCOUNT$RESET.\nPlease check SSO configuration."
         exit 50
     fi

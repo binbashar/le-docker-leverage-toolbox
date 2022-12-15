@@ -26,8 +26,12 @@ AWS_DOCKER_ENTRYPOINT := aws
 # 1.2.1-0.0.1
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
-TERRAFORM_TAG    := 1.2.7
+#
+# IMPORTANT: For sake of the multi images kingdom, this is set
+# from the circle ci workflow, this values are overwritten:
+TERRAFORM_TAG    := 1.3.5
 LEVERAGE_CLI_TAG := 0.0.5
+
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
@@ -37,7 +41,8 @@ DOCKER_IMG_NAME  := leverage-toolbox
 ADDITIONAL_TAGS  := ${TERRAFORM_TAG}-latest
 # ###############################################################
 
-CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
+#CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
+CURRENT_TAG      := $(shell git tag | grep ${DOCKER_TAG})
 
 #
 # ADDITIONAL ARGS FOR THE DOCKER BUILD PROCESS
@@ -131,7 +136,7 @@ ifeq ($(CURRENT_TAG),$(DOCKER_TAG))
 	@echo 'Version not bumped'; \
 	exit 1
 else
-	@echo "Verion bumped from $(CURRENT_TAG) to ${DOCKER_TAG}"
+	@echo "Version bumped to ${DOCKER_TAG}"
 endif
 endif
 

@@ -33,29 +33,45 @@ function log {
 SCRIPT_LOG_LEVEL=${SCRIPT_LOG_LEVEL:-2}
 PROJECT=$(hcledit -f "$COMMON_CONFIG_FILE" attribute get project | sed 's/"//g')
 SSO_PROFILE_NAME=${SSO_PROFILE_NAME:-$PROJECT-sso}
-SSO_ROLE_NAME=${SSO_ROLE_NAME:-$(hcledit -f "$ACCOUNT_CONFIG_FILE" attribute get sso_role | sed 's/"//g')}
 SSO_CACHE_DIR=${SSO_CACHE_DIR:-/root/tmp/$PROJECT/sso/cache}
+SSO_TOKEN_FILE_NAME='token'
 debug "SCRIPT_LOG_LEVEL=$SCRIPT_LOG_LEVEL"
 debug "COMMON_CONFIG_FILE=$COMMON_CONFIG_FILE"
 debug "ACCOUNT_CONFIG_FILE=$ACCOUNT_CONFIG_FILE"
 debug "BACKEND_CONFIG_FILE=$BACKEND_CONFIG_FILE"
 debug "SSO_PROFILE_NAME=$SSO_PROFILE_NAME"
-debug "SSO_ROLE_NAME=$SSO_ROLE_NAME"
+debug "AWS_CONFIG_FILE=$AWS_CONFIG_FILE"
 debug "SSO_CACHE_DIR=$SSO_CACHE_DIR"
+debug "SSO_TOKEN_FILE_NAME=$SSO_TOKEN_FILE_NAME"
 
 # -----------------------------------------------------------------------------
 # Configure accounts profiles
 # -----------------------------------------------------------------------------
-TOKEN=$(jq -r '.accessToken' "$SSO_CACHE_DIR/$SSO_ROLE_NAME")
+info "Clearing profiles"
+awk '/^\[profile/{if($0~/profile '"'${SSO_PROFILE_NAME}'-"'/){found=1}else{found=""}} !found' "$AWS_CONFIG_FILE" > aws2 && mv aws2 "$AWS_CONFIG_FILE"
+
+info "Getting available accounts and roles"
+TOKEN=$(jq -r '.accessToken' "$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME")
 ACCOUNTS=$(aws sso list-accounts --access-token "$TOKEN")
 debug "Accounts: $(echo "$ACCOUNTS" | jq -c '.')"
 
-for account in $(echo "$ACCOUNTS" | jq -c '.accountList[]'); do
-    PROFILE_NAME="$SSO_PROFILE_NAME-$(echo "$account" | jq -r '.accountName' | cut -d '-' -f2-)-$SSO_ROLE_NAME"
-    info "Configuring $BOLD$PROFILE_NAME$RESET."
+CONF_SSO_REGION=$(aws configure get sso_region --profile $SSO_PROFILE_NAME)
+CONF_START_URL=$(aws configure get sso_start_url --profile $SSO_PROFILE_NAME)
 
-    aws configure set role_name "$SSO_ROLE_NAME" --profile "$PROFILE_NAME"
-    aws configure set account_id "$(echo "$account" | jq -r '.accountId')" --profile "$PROFILE_NAME"
+
+for account in $(echo "$ACCOUNTS" | jq -c '.accountList[]'); do
+
+    ACCOUNT_ROLES=$(aws sso list-account-roles --region us-east-1 --access-token $(jq -r '.accessToken'  "$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME") --region us-east-1 --account-id $(echo "$account" | jq -r '.accountId'))
+    for account_role in $(echo "$ACCOUNT_ROLES" | jq -c '.roleList[]'); do
+        PROFILE_NAME="$SSO_PROFILE_NAME-$(echo "$account" | jq -r '.accountName' | cut -d '-' -f2-)-$(echo "$account_role" | jq -r '.roleName' | cut -d '-' -f2-)"
+
+        info "Configuring $BOLD$PROFILE_NAME$RESET."
+
+        aws configure set role_name "$(echo "$account_role" | jq -r '.roleName' | cut -d '-' -f2-)" --profile "$PROFILE_NAME"
+        aws configure set account_id "$(echo "$account" | jq -r '.accountId')" --profile "$PROFILE_NAME"
+        aws configure set sso_region "$CONF_SSO_REGION" --profile "$PROFILE_NAME"
+        aws configure set sso_start_url "$CONF_START_URL" --profile "$PROFILE_NAME"
+    done
 done
 
 info "Account profiles written successfully!"
