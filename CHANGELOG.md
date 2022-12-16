@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.3.5-0.0.1.rc3"></a>
+## [1.3.5-0.0.1.rc3] - 2022-12-16
+
+- ISSUE-25 added logic to avoid adding latest on rc ([#26](https://github.com/binbashar/le-docker-leverage-toolbox/issues/26))
+
+
 <a name="1.3.5-0.0.1.rc2"></a>
-## [1.3.5-0.0.1.rc2] - 0001-01-01
+## [1.3.5-0.0.1.rc2] - 2022-12-15
 
 
 
@@ -86,7 +92,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc2...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc3...HEAD
+[1.3.5-0.0.1.rc3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc2...1.3.5-0.0.1.rc3
 [1.3.5-0.0.1.rc2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0.rc2...1.3.5-0.0.1.rc2
 [1.2.7-0.1.0.rc2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0.rc1...1.2.7-0.1.0.rc2
 [1.2.7-0.1.0.rc1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-alpha...1.2.7-0.1.0.rc1
