@@ -36,10 +36,12 @@ LEVERAGE_CLI_TAG := 0.0.5
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
+
 #
 # ADDITIONAL TAGS FOR THE DOCKER BUILD PROCESS
 #
-ADDITIONAL_TAGS  := ${TERRAFORM_TAG}-latest
+ADDITIONAL_TAGS := $(shell ((echo "${LEVERAGE_CLI_TAG}" | grep -E "\.rc[0-9]+$$") && echo "" ) || echo ${TERRAFORM_TAG}-latest)
+
 # ###############################################################
 
 #CURRENT_TAG      := $(shell git describe --tags --abbrev=0 2> /dev/null)
