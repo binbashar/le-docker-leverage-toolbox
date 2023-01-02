@@ -67,8 +67,11 @@ for account in $(echo "$ACCOUNTS" | jq -c '.accountList[]'); do
 
         info "Configuring $BOLD$PROFILE_NAME$RESET."
 
-        aws configure set role_name "$(echo "$account_role" | jq -r '.roleName' | cut -d '-' -f2-)" --profile "$PROFILE_NAME"
-        aws configure set account_id "$(echo "$account" | jq -r '.accountId')" --profile "$PROFILE_NAME"
+        RN=$(echo "$account_role" | jq -r '.roleName' | cut -d '-' -f2-)
+        AI=$(echo "$account" | jq -r '.accountId')
+        aws configure set role_name "${RN}" --profile "$PROFILE_NAME"
+        aws configure set bbchk "$( echo ${RN}${AI}| md5sum | cut -d ' ' -f1)" --profile "$PROFILE_NAME"
+        aws configure set account_id "${AI}" --profile "$PROFILE_NAME"
         aws configure set sso_region "$CONF_SSO_REGION" --profile "$PROFILE_NAME"
         aws configure set sso_start_url "$CONF_START_URL" --profile "$PROFILE_NAME"
     done

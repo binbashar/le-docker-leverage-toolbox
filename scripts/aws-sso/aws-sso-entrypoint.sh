@@ -104,6 +104,8 @@ for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
     fi
     debug "Account ID: $BOLD$ACCOUNT_ID$RESET"
 
+    BBCHK=$(aws configure get bbchk --profile "$SSO_ACC_PROFILE" || echo "")
+
     ACC_PROFILE="$PROJECT-$ACCOUNT-${ACCS_IAM_ROLES[$ACCOUNT]}"
     debug "AWS CLI profile: $BOLD$ACC_PROFILE$RESET"
     
@@ -116,7 +118,10 @@ for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
         RENEWAL_TIME=$(("$CURRENT_TIME" + (30 * 60)))
         debug "Token renewal time: $BOLD$RENEWAL_TIME$RESET"
 
-        [[ $RENEWAL_TIME -lt $TOKEN_EXPIRATION ]] && info "Using already configured temporary credentials." && continue
+        ACC_BBCHK=$(aws configure get bbchk --profile "$ACC_PROFILE" || echo "")
+        THEO_BBCHK=$(echo ${SSO_ROLE_NAME}${ACCOUNT_ID}| md5sum | cut -d ' ' -f1)
+        debug "Comparing ${ACC_BBCHK} and ${BBCHK} and ${THEO_BBCHK}..."
+        [[ $RENEWAL_TIME -lt $TOKEN_EXPIRATION ]] && [[ "${BBCHK}" != "" ]] && [[ "${THEO_BBCHK}" == "${BBCHK}" ]] && [[ "${ACC_BBCHK}" == "${BBCHK}" ]] && info "Using already configured temporary credentials." && continue
     fi
 
     # Retrieve credentials 
@@ -139,6 +144,7 @@ for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
     aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY" --profile "$ACC_PROFILE"
     aws configure set aws_session_token "$AWS_SESSION_TOKEN" --profile "$ACC_PROFILE"
     aws configure set expiration "$(echo "$PROFILE_CREDENTIALS" | jq -r '.roleCredentials.expiration')" --profile "$ACC_PROFILE"
+    aws configure set bbchk "${BBCHK}" --profile "$ACC_PROFILE"
 
     info "Credentials for $BOLD$ACCOUNT$RESET account written successfully."
 done
