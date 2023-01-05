@@ -11,6 +11,7 @@ workflows:
       - path-filtering/filter:
           base-revision: master
           mapping: |
+            versions_to_build image-data-modified true
             Dockerfile.template image-data-modified true
             scripts/.* image-data-modified true
             Makefile image-data-modified true
