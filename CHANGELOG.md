@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.0"></a>
+## [1.2.7-0.1.0] - 2023-01-06
+
+- ISSUE-130 added stable versions ([#28](https://github.com/binbashar/le-docker-leverage-toolbox/issues/28))
+
+
 <a name="1.3.5-0.0.1.rc4"></a>
 ## [1.3.5-0.0.1.rc4] - 2022-12-16
 
@@ -98,7 +104,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc4...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0...HEAD
+[1.2.7-0.1.0]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc4...1.2.7-0.1.0
 [1.3.5-0.0.1.rc4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc3...1.3.5-0.0.1.rc4
 [1.3.5-0.0.1.rc3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc2...1.3.5-0.0.1.rc3
 [1.3.5-0.0.1.rc2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0.rc2...1.3.5-0.0.1.rc2
