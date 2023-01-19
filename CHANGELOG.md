@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.1"></a>
+## [1.2.7-0.1.1] - 2023-01-19
+
+- ISSUE-30 Updated AWS CLI image ([#31](https://github.com/binbashar/le-docker-leverage-toolbox/issues/31))
+
+
 <a name="1.3.5-0.0.1"></a>
-## [1.3.5-0.0.1] - 0001-01-01
+## [1.3.5-0.0.1] - 2023-01-06
 
 
 
@@ -109,7 +115,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.1...HEAD
+[1.2.7-0.1.1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1...1.2.7-0.1.1
 [1.3.5-0.0.1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0...1.3.5-0.0.1
 [1.2.7-0.1.0]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc4...1.2.7-0.1.0
 [1.3.5-0.0.1.rc4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1.rc3...1.3.5-0.0.1.rc4
