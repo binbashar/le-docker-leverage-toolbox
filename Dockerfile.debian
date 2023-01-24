@@ -39,7 +39,8 @@ apt-get install -y \
         jq \
         oathtool \
         wget \
-        python3
+        python3 \
+        git
         # oath-toolkit-oathtool \
 
 #RUN ln -s /usr/bin/python3 python
