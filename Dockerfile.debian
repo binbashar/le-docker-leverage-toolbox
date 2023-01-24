@@ -8,7 +8,7 @@ ARG HCLEDIT_VERSION=0.2.2
 ################################################################
 ################################################################
 
-FROM debian:11.6-slim AS Base
+FROM debian:11.6-slim AS base
 
 LABEL vendor="Binbash Leverage (info@binbash.com.ar)"
 
@@ -47,7 +47,7 @@ apt-get install -y \
 ################################################################
 ################################################################
 
-FROM Base AS LeverageBase
+FROM base AS leverage-base
 
 ################################
 # Versions
@@ -88,7 +88,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}
 ################################################################
 ################################################################
 
-FROM LeverageBase AS LeverageToolbox
+FROM leverage-base AS leverage-toolbox
 
 ################################
 # Versions
