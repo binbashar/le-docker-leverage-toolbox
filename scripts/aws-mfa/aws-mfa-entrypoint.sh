@@ -249,6 +249,12 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             if [[ $MFA_ASSUME_ROLE_OUTPUT == *"invalid MFA"* ]]; then
                 OTP_FAILED=true
                 info "Unable to get valid credentials. Let's try again..."
+            elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"AccessDenied"* ]]; then
+                info "Access Denied error!"
+                exit 161
+            elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"An error occurred"* ]]; then
+                info "An error occurred!"
+                exit 162
             elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"aws: error: argument --token-code: expected one argument"* ]]; then
                 error "Aborted!"
                 exit 156
