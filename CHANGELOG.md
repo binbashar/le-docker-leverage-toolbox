@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.2"></a>
+## [1.2.7-0.1.2] - 2023-01-27
+
+- ISSUE-161 Added logic to trap AWS errors on assume-role ([#37](https://github.com/binbashar/le-docker-leverage-toolbox/issues/37))
+
+
 <a name="1.3.5-0.0.2"></a>
-## [1.3.5-0.0.2] - 0001-01-01
+## [1.3.5-0.0.2] - 2023-01-19
 
 
 
@@ -120,7 +126,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.2...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.2...HEAD
+[1.2.7-0.1.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.2...1.2.7-0.1.2
 [1.3.5-0.0.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.1...1.3.5-0.0.2
 [1.2.7-0.1.1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.1...1.2.7-0.1.1
 [1.3.5-0.0.1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.0...1.3.5-0.0.1
