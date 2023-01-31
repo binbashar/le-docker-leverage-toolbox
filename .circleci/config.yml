@@ -12,7 +12,7 @@ workflows:
           base-revision: master
           mapping: |
             versions_to_build image-data-modified true
-            Dockerfile.template image-data-modified true
+            Dockerfile* image-data-modified true
             scripts/.* image-data-modified true
             Makefile image-data-modified true
             README.md not-image-related true
