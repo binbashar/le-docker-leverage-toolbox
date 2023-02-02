@@ -56,7 +56,15 @@ aws sso login --profile "$SSO_PROFILE_NAME"
 # Store token in cache
 debug "Caching token"
 TOKEN_FILE="$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME"
-find "$AWS_SSO_CACHE_DIR" -maxdepth 1 -type f -name '*.json' -not -name 'botocore-client*' -exec cp {} "$TOKEN_FILE" \;
+FILES=$(find "$AWS_SSO_CACHE_DIR" -maxdepth 1 -type f -name '*.json' -not -name 'botocore-client*' -exec ls {} \;)
+for file in $FILES;
+do
+    if (jq -r '.accessToken' $file >/dev/null);
+    then
+        cp $file "$TOKEN_FILE"
+        break
+    fi
+done
 debug "Token Expiration: $BOLD$(jq -r '.expiresAt' "$TOKEN_FILE")$RESET"
 
 info "${BOLD}Successfully logged in!$RESET"
