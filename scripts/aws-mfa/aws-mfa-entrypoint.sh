@@ -264,7 +264,7 @@ for i in "${UNIQ_PROFILES[@]}" ; do
     done
 
     # Check if credentials were actually created
-    if [[ ! $OTP_FAILED ]]; then
+    if [[ $OTP_FAILED == true ]]; then
         error "Unable to get valid credentials after $MAX_RETRIES attempts"
         exit 160
     fi
