@@ -45,11 +45,9 @@ function log {
 function get_config {
     local config_file=$1
     local config_key=$2
-    local config_value=```
-    grep -oEi "^$config_key\s+=.*\"([a-zA-Z0-9\-]+)\"" $config_file \
-    | grep -oEi "\".+\"" \
-    | sed 's/\"//g'
-    ```
+    local config_value=$(grep -oEi "^$config_key\s+=.*\"([a-zA-Z0-9\-]+)\"" $config_file \
+                         | grep -oEi "\".+\"" \
+                         | sed 's/\"//g')
     echo $config_value
 }
 
@@ -59,27 +57,25 @@ function get_profile {
     local aws_credentials="$2"
     local profile_name="$3"
     local profile_key="$4"
-    local profile_value=```
-    AWS_CONFIG_FILE=$aws_config; \
-    AWS_SHARED_CREDENTIALS_FILE=$aws_credentials; \
-    aws configure get profile.$profile_name.$profile_key
-    ```
-    echo $profile_value
+    local profile_value=$(AWS_CONFIG_FILE=$aws_config; \
+                          AWS_SHARED_CREDENTIALS_FILE=$aws_credentials; \
+                          aws configure get "profile.$profile_name.$profile_key")
+    echo "$profile_value"
 }
 
 
 # -----------------------------------------------------------------------------
 # Initialize variables
 # -----------------------------------------------------------------------------
-MFA_SCRIPT_LOG_LEVEL=`printenv MFA_SCRIPT_LOG_LEVEL || echo 2`
-BACKEND_CONFIG_FILE=`printenv BACKEND_CONFIG_FILE`
-COMMON_CONFIG_FILE=`printenv COMMON_CONFIG_FILE`
-SRC_AWS_CONFIG_FILE=`printenv SRC_AWS_CONFIG_FILE`
-SRC_AWS_SHARED_CREDENTIALS_FILE=`printenv SRC_AWS_SHARED_CREDENTIALS_FILE`
-TF_AWS_CONFIG_FILE=`printenv AWS_CONFIG_FILE`
-TF_AWS_SHARED_CREDENTIALS_FILE=`printenv AWS_SHARED_CREDENTIALS_FILE`
-AWS_CACHE_DIR=`printenv AWS_CACHE_DIR || echo /tmp/cache`
-AWS_REGION="$(get_config $BACKEND_CONFIG_FILE region)"
+MFA_SCRIPT_LOG_LEVEL=$(printenv MFA_SCRIPT_LOG_LEVEL || echo 2)
+BACKEND_CONFIG_FILE=$(printenv BACKEND_CONFIG_FILE)
+COMMON_CONFIG_FILE=$(printenv COMMON_CONFIG_FILE)
+SRC_AWS_CONFIG_FILE=$(printenv SRC_AWS_CONFIG_FILE)
+SRC_AWS_SHARED_CREDENTIALS_FILE=$(printenv SRC_AWS_SHARED_CREDENTIALS_FILE)
+TF_AWS_CONFIG_FILE=$(printenv AWS_CONFIG_FILE)
+TF_AWS_SHARED_CREDENTIALS_FILE=$(printenv AWS_SHARED_CREDENTIALS_FILE)
+AWS_CACHE_DIR=$(printenv AWS_CACHE_DIR || echo /tmp/cache)
+AWS_REGION=$(get_config "$BACKEND_CONFIG_FILE" region)
 AWS_OUTPUT=json
 debug "${BOLD}BACKEND_CONFIG_FILE=${RESET}$BACKEND_CONFIG_FILE"
 debug "${BOLD}SRC_AWS_CONFIG_FILE=${RESET}$SRC_AWS_CONFIG_FILE"
@@ -128,11 +124,11 @@ fi
 
 set +e
 # Now we need to replace any placeholders in the profiles
-PROFILE_VALUE="$(get_config $BACKEND_CONFIG_FILE profile)"
-PROJECT_VALUE="$(get_config $COMMON_CONFIG_FILE project)"
+PROFILE_VALUE=$(get_config "$BACKEND_CONFIG_FILE" profile)
+PROJECT_VALUE=$(get_config "$COMMON_CONFIG_FILE" project)
 PROFILES=()
 for i in "${RAW_PROFILES[@]}" ; do
-    TMP_PROFILE=`echo $i | sed "s/profile=//" | sed "s/var.profile/${PROFILE_VALUE}/" | sed "s/var.project/${PROJECT_VALUE}/"`
+    TMP_PROFILE=$(echo "$i" | sed "s/profile=//" | sed "s/var.profile/${PROFILE_VALUE}/" | sed "s/var.project/${PROJECT_VALUE}/")
     PROFILES+=("$TMP_PROFILE")
 done
 
@@ -165,9 +161,9 @@ for i in "${UNIQ_PROFILES[@]}" ; do
         exit 150
     fi
     debug "${BOLD}MFA_ROLE_ARN=${RESET}$MFA_ROLE_ARN"
-    MFA_SERIAL_NUMBER="$(get_profile $SRC_AWS_CONFIG_FILE $SRC_AWS_SHARED_CREDENTIALS_FILE $i mfa_serial)"
+    MFA_SERIAL_NUMBER=$(get_profile "$SRC_AWS_CONFIG_FILE" "$SRC_AWS_SHARED_CREDENTIALS_FILE" "$i" mfa_serial)
     debug "${BOLD}MFA_SERIAL_NUMBER=${RESET}$MFA_SERIAL_NUMBER"
-    MFA_PROFILE_NAME="$(get_profile $SRC_AWS_CONFIG_FILE $SRC_AWS_SHARED_CREDENTIALS_FILE $i source_profile)"
+    MFA_PROFILE_NAME=$(get_profile "$SRC_AWS_CONFIG_FILE" "$SRC_AWS_SHARED_CREDENTIALS_FILE" "$i" source_profile)
     debug "${BOLD}MFA_PROFILE_NAME=${RESET}$MFA_PROFILE_NAME"
     # Validate all required fields
     if [[ $MFA_SERIAL_NUMBER == "" ]]; then error "Missing 'mfa_serial'" && exit 151; fi
@@ -198,12 +194,12 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             # Get expiration date/timestamp
             EXPIRATION_DATE=$(echo "$EXPIRATION_DATE" | sed -e 's/T/ /' | sed -E 's/(Z|\+[0-9]{2}:[0-9]{2})$//')
             debug "${BOLD}EXPIRATION_DATE=${RESET}$EXPIRATION_DATE"
-            EXPIRATION_TS=`date -d "$EXPIRATION_DATE" +"%s" || date +"%s"`
+            EXPIRATION_TS=$(date -d "$EXPIRATION_DATE" +"%s" || date +"%s")
             debug "${BOLD}EXPIRATION_TS=${RESET}$EXPIRATION_TS"
 
             # Compare current timestamp (plus a margin) with the expiration timestamp
-            CURRENT_TS=`date +"%s"`
-            CURRENT_TS_PLUS_MARGIN=`echo $(( $CURRENT_TS + (30 * 60) ))`
+            CURRENT_TS=$(date +"%s")
+            CURRENT_TS_PLUS_MARGIN=$(( "$CURRENT_TS" + (30 * 60) ))
             debug "${BOLD}CURRENT_TS=${RESET}$CURRENT_TS"
             debug "${BOLD}CURRENT_TS_PLUS_MARGIN=${RESET}$CURRENT_TS_PLUS_MARGIN"
             if [[ CURRENT_TS_PLUS_MARGIN -lt $EXPIRATION_TS ]]; then
@@ -231,12 +227,12 @@ for i in "${UNIQ_PROFILES[@]}" ; do
         if ! MFA_ASSUME_ROLE_OUTPUT=$(AWS_CONFIG_FILE="$SRC_AWS_CONFIG_FILE" && \
                                       AWS_SHARED_CREDENTIALS_FILE="$SRC_AWS_SHARED_CREDENTIALS_FILE" && \
                                       aws sts assume-role \
-                                                --role-arn $MFA_ROLE_ARN \
-                                                --serial-number $MFA_SERIAL_NUMBER \
-                                                --role-session-name $MFA_ROLE_SESSION_NAME \
-                                                --duration-seconds $MFA_DURATION \
-                                                --token-code $MFA_TOKEN_CODE \
-                                                --profile $MFA_PROFILE_NAME 2>&1); then
+                                                --role-arn "$MFA_ROLE_ARN" \
+                                                --serial-number "$MFA_SERIAL_NUMBER" \
+                                                --role-session-name "$MFA_ROLE_SESSION_NAME" \
+                                                --duration-seconds "$MFA_DURATION" \
+                                                --token-code "$MFA_TOKEN_CODE" \
+                                                --profile "$MFA_PROFILE_NAME" 2>&1); then
             # Check if STS call failed because of invalid token or user interruption
             if [[ $MFA_ASSUME_ROLE_OUTPUT == *"invalid MFA"* ]]; then
                 OTP_FAILED=true
@@ -254,7 +250,7 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             debug "${BOLD}MFA_ASSUME_ROLE_OUTPUT=${RESET}${MFA_ASSUME_ROLE_OUTPUT}"
         else
             OTP_FAILED=false
-            echo "$MFA_ASSUME_ROLE_OUTPUT" > $TEMP_FILE
+            echo "$MFA_ASSUME_ROLE_OUTPUT" > "$TEMP_FILE"
         fi
         debug "${BOLD}OTP_FAILED=${RESET}$OTP_FAILED"
         RETRIES_COUNT=$((RETRIES_COUNT+1))
@@ -273,23 +269,21 @@ for i in "${UNIQ_PROFILES[@]}" ; do
     # -----------------------------------------------------------------------------
 
     # Parse id, secret and session from the output above
-    AWS_ACCESS_KEY_ID=`cat $TEMP_FILE | jq .Credentials.AccessKeyId | sed -e 's/"//g'`
-    AWS_SECRET_ACCESS_KEY=`cat $TEMP_FILE | jq .Credentials.SecretAccessKey | sed -e 's/"//g'`
-    AWS_SESSION_TOKEN=`cat $TEMP_FILE | jq .Credentials.SessionToken | sed -e 's/"//g'`
+    AWS_ACCESS_KEY_ID=$(jq -r .Credentials.AccessKeyId "$TEMP_FILE")
+    AWS_SECRET_ACCESS_KEY=$(jq -r .Credentials.SecretAccessKey "$TEMP_FILE")
+    AWS_SESSION_TOKEN=$(jq -r .Credentials.SessionToken "$TEMP_FILE")
     debug "${BOLD}AWS_ACCESS_KEY_ID=${RESET}${AWS_ACCESS_KEY_ID:0:4}**************"
     debug "${BOLD}AWS_SECRET_ACCESS_KEY=${RESET}${AWS_SECRET_ACCESS_KEY:0:4}**************"
     debug "${BOLD}AWS_SESSION_TOKEN=${RESET}${AWS_SESSION_TOKEN:0:4}**************"
 
     # Create a profile block in the AWS credentials file using the credentials above
-    REPLACE_CREDENTIALS=```
-    AWS_CONFIG_FILE=$TF_AWS_CONFIG_FILE; \
+    (AWS_CONFIG_FILE=$TF_AWS_CONFIG_FILE; \
     AWS_SHARED_CREDENTIALS_FILE=$TF_AWS_SHARED_CREDENTIALS_FILE; \
-    aws configure set profile.$i.aws_access_key_id $AWS_ACCESS_KEY_ID; \
-    aws configure set profile.$i.aws_secret_access_key $AWS_SECRET_ACCESS_KEY; \
-    aws configure set profile.$i.aws_session_token $AWS_SESSION_TOKEN; \
-    aws configure set region $AWS_REGION; \
-    aws configure set output $AWS_OUTPUT
-    ```
+    aws configure set "profile.$i.aws_access_key_id" "$AWS_ACCESS_KEY_ID"; \
+    aws configure set "profile.$i.aws_secret_access_key" "$AWS_SECRET_ACCESS_KEY"; \
+    aws configure set "profile.$i.aws_session_token" "$AWS_SESSION_TOKEN"; \
+    aws configure set region "$AWS_REGION"; \
+    aws configure set output "$AWS_OUTPUT")
 
     info "${BOLD}MFA:${RESET} Credentials written succesfully!"
 done
