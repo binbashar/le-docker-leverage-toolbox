@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.3"></a>
+## [1.2.7-0.1.3] - 2023-02-02
+
+- Issue 40 can not sso login with new aws cli ([#41](https://github.com/binbashar/le-docker-leverage-toolbox/issues/41))
+
+
 <a name="1.3.5-0.0.3"></a>
-## [1.3.5-0.0.3] - 0001-01-01
+## [1.3.5-0.0.3] - 2023-01-27
 
 
 
@@ -131,7 +137,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.3...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.3...HEAD
+[1.2.7-0.1.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.3...1.2.7-0.1.3
 [1.3.5-0.0.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.2...1.3.5-0.0.3
 [1.2.7-0.1.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.2...1.2.7-0.1.2
 [1.3.5-0.0.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.1...1.3.5-0.0.2
