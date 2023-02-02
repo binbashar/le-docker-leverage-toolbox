@@ -241,9 +241,9 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             if [[ $MFA_ASSUME_ROLE_OUTPUT == *"invalid MFA"* ]]; then
                 OTP_FAILED=true
                 info "Unable to get valid credentials. Let's try again..."
-            elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"aws: error: argument --token-code: expected one argument"* ]]; then
+            elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"Invalid length for parameter TokenCode, value:"* ]]; then
                 OTP_FAILED=true
-                info "No token given. Let's try again..."
+                info "Invalid token length, it must be 6 digits long. Let's try again..."
             elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"AccessDenied"* ]]; then
                 info "Access Denied error!"
                 exit 161
