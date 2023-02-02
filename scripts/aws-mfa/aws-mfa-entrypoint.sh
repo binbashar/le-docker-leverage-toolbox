@@ -157,7 +157,6 @@ for i in "${UNIQ_PROFILES[@]}" ; do
     if ! MFA_ROLE_ARN=$(AWS_CONFIG_FILE="$SRC_AWS_CONFIG_FILE" && \
                         AWS_SHARED_CREDENTIALS_FILE="$SRC_AWS_SHARED_CREDENTIALS_FILE" && \
                         aws configure get role_arn --profile "$i" 2>&1); then
-        error "$MFA_ROLE_ARN"
         if [[ "$MFA_ROLE_ARN" == *"$i"* ]]; then
             error "Credentials for profile $i have not been properly configured. Please check your configuration."
         else
