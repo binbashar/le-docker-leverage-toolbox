@@ -170,8 +170,6 @@ for i in "${UNIQ_PROFILES[@]}" ; do
     debug "${BOLD}MFA_SERIAL_NUMBER=${RESET}$MFA_SERIAL_NUMBER"
     MFA_PROFILE_NAME="$(get_profile $SRC_AWS_CONFIG_FILE $SRC_AWS_SHARED_CREDENTIALS_FILE $i source_profile)"
     debug "${BOLD}MFA_PROFILE_NAME=${RESET}$MFA_PROFILE_NAME"
-    MFA_TOTP_KEY="$(get_profile $SRC_AWS_CONFIG_FILE $SRC_AWS_SHARED_CREDENTIALS_FILE $i totp_key)"
-    debug "${BOLD}MFA_TOTP_KEY=${RESET}$MFA_TOTP_KEY"
     # Validate all required fields
     if [[ $MFA_SERIAL_NUMBER == "" ]]; then error "Missing 'mfa_serial'" && exit 151; fi
     if [[ $MFA_PROFILE_NAME == "" ]]; then error "Missing 'source_profile'" && exit 152; fi
@@ -218,18 +216,12 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             fi
         fi
 
-        # Let's see if can automatically generate the OTP
-        if [[ $MFA_TOTP_KEY != "" ]]; then
-            debug "${BOLD}MFA_TOTP_KEY=${RESET}$MFA_TOTP_KEY"
-            MFA_TOKEN_CODE=`oathtool --totp -b $MFA_TOTP_KEY`
-        else
-            # If the MFA TOTP Key was not found, prompt the user for the MFA Token
-            echo -ne "${BOLD}MFA:${RESET} Please type in your OTP: "  
-            MFA_TOKEN_CODE=```
-            read TOKEN_CODE;
-            echo $TOKEN_CODE
-            ```
-        fi
+        # If the MFA TOTP Key was not found, prompt the user for the MFA Token
+        echo -ne "${BOLD}MFA:${RESET} Please type in your OTP: "  
+        MFA_TOKEN_CODE=```
+        read TOKEN_CODE;
+        echo $TOKEN_CODE
+        ```
         debug "${BOLD}MFA_TOKEN_CODE=${RESET}$MFA_TOKEN_CODE"
 
         # -----------------------------------------------------------------------------
