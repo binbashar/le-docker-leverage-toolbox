@@ -256,7 +256,7 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             OTP_FAILED=false
             echo "$MFA_ASSUME_ROLE_OUTPUT" > $TEMP_FILE
         fi
-        debug "${BOLD}MFA_ASSUME_ROLE_OUTPUT=${RESET}${MFA_ASSUME_ROLE_OUTPUT:0:20}"
+        debug "${BOLD}MFA_ASSUME_ROLE_OUTPUT=${RESET}${MFA_ASSUME_ROLE_OUTPUT}"
         debug "${BOLD}OTP_FAILED=${RESET}$OTP_FAILED"
         RETRIES_COUNT=$((RETRIES_COUNT+1))
         debug "${BOLD}RETRIES_COUNT=${RESET}$RETRIES_COUNT"
