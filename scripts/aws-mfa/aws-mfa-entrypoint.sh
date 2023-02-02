@@ -216,12 +216,13 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             fi
         fi
 
-        # If the MFA TOTP Key was not found, prompt the user for the MFA Token
-        echo -ne "${BOLD}MFA:${RESET} Please type in your OTP: "  
-        MFA_TOKEN_CODE=```
-        read TOKEN_CODE;
-        echo $TOKEN_CODE
-        ```
+        # Prompt user for MFA Token
+        echo -ne "${BOLD}MFA:${RESET} Please type in your OTP: "
+        if ! MFA_TOKEN_CODE=$(read MFA_TOKEN_CODE && echo "$MFA_TOKEN_CODE"); then
+            echo
+            error "Aborted!"
+            exit 156;
+        fi
         debug "${BOLD}MFA_TOKEN_CODE=${RESET}$MFA_TOKEN_CODE"
 
         # -----------------------------------------------------------------------------
@@ -241,15 +242,15 @@ for i in "${UNIQ_PROFILES[@]}" ; do
             if [[ $MFA_ASSUME_ROLE_OUTPUT == *"invalid MFA"* ]]; then
                 OTP_FAILED=true
                 info "Unable to get valid credentials. Let's try again..."
+            elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"aws: error: argument --token-code: expected one argument"* ]]; then
+                OTP_FAILED=true
+                info "No token given. Let's try again..."
             elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"AccessDenied"* ]]; then
                 info "Access Denied error!"
                 exit 161
             elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"An error occurred"* ]]; then
                 info "An error occurred!"
                 exit 162
-            elif [[ $MFA_ASSUME_ROLE_OUTPUT == *"aws: error: argument --token-code: expected one argument"* ]]; then
-                error "Aborted!"
-                exit 156
             fi
         else
             OTP_FAILED=false
