@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.4"></a>
+## [1.2.7-0.1.4] - 2023-02-03
+
+- ISSUE-16 | Keyboard Interrupt handling ([#42](https://github.com/binbashar/le-docker-leverage-toolbox/issues/42))
+
+
 <a name="1.3.5-0.0.4"></a>
-## [1.3.5-0.0.4] - 0001-01-01
+## [1.3.5-0.0.4] - 2023-02-02
 
 
 
@@ -142,7 +148,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.4...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.4...HEAD
+[1.2.7-0.1.4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.4...1.2.7-0.1.4
 [1.3.5-0.0.4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.3...1.3.5-0.0.4
 [1.2.7-0.1.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.0.3...1.2.7-0.1.3
 [1.3.5-0.0.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.2...1.3.5-0.0.3
