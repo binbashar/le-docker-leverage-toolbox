@@ -1,19 +1,34 @@
 ARG TERRAFORM_VERSION
 
-FROM hashicorp/terraform:${TERRAFORM_VERSION}
-
-LABEL vendor="Binbash Leverage (info@binbash.com.ar)"
-
 ARG GLIBC_VERSION=2.34-r0
 ARG AWSCLI_VERSION=2.7.32
 ARG AWSVAULT_VERSION=v6.3.1
 ARG HCLEDIT_VERSION=0.2.2
 
-# Install python3 and other useful dependencies
-RUN apk update
-RUN set -ex && \
-        apk add ca-certificates && update-ca-certificates && \
-	apk add --no-cache --update \
+################################################################
+################################################################
+
+FROM debian:11.6-slim AS base
+
+LABEL vendor="Binbash Leverage (info@binbash.com.ar)"
+
+################################
+# Versions
+################################
+
+ARG GLIBC_VERSION
+ARG AWSCLI_VERSION
+ARG AWSVAULT_VERSION
+ARG HCLEDIT_VERSION
+
+################################
+# System update and intalls
+################################
+
+RUN \
+# Update
+apt-get update && \
+apt-get install -y \
         curl \
         unzip \
         bash \
@@ -22,24 +37,48 @@ RUN set -ex && \
         tzdata \
         groff \
         jq \
-        oath-toolkit-oathtool \
-        python3
-RUN rm /var/cache/apk/*
+        oathtool \
+        wget \
+        python3 \
+        git
+        # oath-toolkit-oathtool \
 
-# Download and install glibc
-# NOTE: Keep an eye on the issue https://github.com/aws/aws-cli/pull/6352 regarding installation of the AWS CLI from source in order to avoid
-# the need of installing glibc
-# With newer versions of Alpine (e.g. 3.16, used in Terraform 1.3.5 container image) this error can show up:
-# ERROR: glibc-2.34-r0: trying to overwrite etc/nsswitch.conf owned by alpine-baselayout-data-3.2.0-r23
-# if this happen, use the --force-overwrite flag in apk add
-# issue here https://github.com/sgerrand/alpine-pkg-glibc/issues/185
-RUN curl -sL "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" -o /etc/apk/keys/sgerrand.rsa.pub \
-        && curl -sLO "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" \
-        && curl -sLO "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
-        && apk add --no-cache --force-overwrite \
-        glibc-${GLIBC_VERSION}.apk \
-        glibc-bin-${GLIBC_VERSION}.apk \
-        && rm glibc-${GLIBC_VERSION}.apk glibc-bin-${GLIBC_VERSION}.apk
+#RUN ln -s /usr/bin/python3 python
+
+################################################################
+################################################################
+
+FROM base AS leverage-base
+
+################################
+# Versions
+################################
+
+ARG TERRAFORM_VERSION
+ARG GLIBC_VERSION
+ARG AWSCLI_VERSION
+ARG AWSVAULT_VERSION
+ARG HCLEDIT_VERSION
+
+################################
+# Install Terraform
+################################
+
+# Download terraform for linux
+RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# Unzip
+RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# Move to local bin
+RUN mv terraform /usr/local/bin/
+RUN ln -s /usr/local/bin/terraform /bin/terraform
+# Check that it's installed
+RUN terraform --version
+
+################################
+# Install AWS CLI
+################################
 
 # Install AWS CLI v2
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}.zip" -o awscliv2.zip \
@@ -47,15 +86,44 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWSCLI_VERSION}
         && ./aws/install \
         && rm -rf awscliv2.zip aws
 
+################################################################
+################################################################
+
+FROM leverage-base AS leverage-toolbox
+
+################################
+# Versions
+################################
+
+ARG TERRAFORM_VERSION
+ARG GLIBC_VERSION
+ARG AWSCLI_VERSION
+ARG AWSVAULT_VERSION
+ARG HCLEDIT_VERSION
+
+################################
+# Install 
+################################
+
 # Add aws-vault
 RUN curl -LO "https://github.com/99designs/aws-vault/releases/download/${AWSVAULT_VERSION}/aws-vault-linux-amd64" \
         && chmod +x aws-vault-linux-amd64 \
         && mv aws-vault-linux-amd64 /usr/local/bin/aws-vault
 
+################################
+# Install 
+################################
+
 # Install hcledit
 RUN curl -LO "https://github.com/minamijoyo/hcledit/releases/download/v${HCLEDIT_VERSION}/hcledit_${HCLEDIT_VERSION}"_linux_amd64.tar.gz \
-        && tar -xzf hcledit_${HCLEDIT_VERSION}_linux_amd64.tar.gz hcledit -C /usr/local/bin \
+        && tar -xzf hcledit_${HCLEDIT_VERSION}_linux_amd64.tar.gz hcledit \
+        && chmod +x hcledit \
+        && mv hcledit /usr/local/bin/hcledit \
         && rm hcledit_${HCLEDIT_VERSION}_linux_amd64.tar.gz
+
+################################
+# Install 
+################################
 
 # Install tfautomv
 ARG TFAUTOMV_VERSION="0.5.0"
@@ -64,6 +132,10 @@ RUN curl -LO "https://github.com/padok-team/tfautomv/releases/download/v${TFAUTO
     && chmod +x tfautomv \
     && mv tfautomv /usr/local/bin/tfautomv \
     && rm tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz
+
+################################
+# Install 
+################################
 
 # Add aws-mfa script
 RUN mkdir -p /root/scripts/aws-mfa
@@ -75,6 +147,14 @@ COPY ./scripts/aws-sso/aws-sso-login.sh  /root/scripts/aws-sso/aws-sso-login.sh
 COPY ./scripts/aws-sso/aws-sso-logout.sh  /root/scripts/aws-sso/aws-sso-logout.sh
 COPY ./scripts/aws-sso/aws-sso-entrypoint.sh  /root/scripts/aws-sso/aws-sso-entrypoint.sh
 
+################################
+# Install 
+################################
+
 RUN chmod -R +x /root/scripts/
+
+################################
+# Install 
+################################
 
 ENTRYPOINT ["terraform"]
