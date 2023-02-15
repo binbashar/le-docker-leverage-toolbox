@@ -65,6 +65,12 @@ RUN curl -LO "https://github.com/padok-team/tfautomv/releases/download/v${TFAUTO
     && mv tfautomv /usr/local/bin/tfautomv \
     && rm tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz
 
+# Install kubectl
+ARG KUBECTL_VERSION=1.23.15
+RUN curl -O "https://s3.us-west-2.amazonaws.com/amazon-eks/${KUBECTL_VERSION}/2023-01-11/bin/linux/amd64/kubectl" \
+    && chmod +x kubectl \
+    && mv kubectl /usr/local/bin/kubectl
+
 # Add aws-mfa script
 RUN mkdir -p /root/scripts/aws-mfa
 COPY ./scripts/aws-mfa/aws-mfa-entrypoint.sh  /root/scripts/aws-mfa/aws-mfa-entrypoint.sh
