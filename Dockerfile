@@ -66,8 +66,8 @@ RUN curl -LO "https://github.com/padok-team/tfautomv/releases/download/v${TFAUTO
     && rm tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz
 
 # Install kubectl
-ARG KUBECTL_VERSION=1.23.15
-RUN curl -O "https://s3.us-west-2.amazonaws.com/amazon-eks/${KUBECTL_VERSION}/2023-01-11/bin/linux/amd64/kubectl" \
+ARG KUBECTL_VERSION="v1.23.15"
+RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
     && chmod +x kubectl \
     && mv kubectl /usr/local/bin/kubectl
 
