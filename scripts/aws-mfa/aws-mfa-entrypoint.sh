@@ -85,6 +85,16 @@ debug "${BOLD}TF_AWS_SHARED_CREDENTIALS_FILE=${RESET}$TF_AWS_SHARED_CREDENTIALS_
 debug "${BOLD}AWS_REGION=${RESET}$AWS_REGION"
 debug "${BOLD}AWS_OUTPUT=${RESET}$AWS_OUTPUT"
 
+# ---------------------------
+# Set right access to ssh
+# ---------------------------
+if [[ -d /tmp/.ssh ]];
+then
+    log "Setting .ssh permissions..." 1
+    cp -r /tmp/.ssh ~/.ssh
+    chown $(id -u):$(id -g) -R ~/.ssh
+    chmod 600 ~/.ssh
+fi
 
 # -----------------------------------------------------------------------------
 # Pre-run Steps

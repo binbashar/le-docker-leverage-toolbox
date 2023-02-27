@@ -47,6 +47,17 @@ debug "SSO_CACHE_DIR=$SSO_CACHE_DIR"
 debug "SSO_TOKEN_FILE_NAME=$SSO_TOKEN_FILE_NAME"
 
 
+# ---------------------------
+# Set right access to ssh
+# ---------------------------
+if [[ -d /tmp/.ssh ]];
+then
+    log "Setting .ssh permissions..." 1
+    cp -r /tmp/.ssh ~/
+    chown $(id -u):$(id -g) -R ~/.ssh
+    chmod 600 ~/.ssh
+fi
+
 # -----------------------------------------------------------------------------
 # Get profiles used by Terraform
 # -----------------------------------------------------------------------------

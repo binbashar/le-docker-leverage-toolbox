@@ -74,6 +74,7 @@ COPY ./scripts/aws-sso/aws-sso-configure.sh  /root/scripts/aws-sso/aws-sso-confi
 COPY ./scripts/aws-sso/aws-sso-login.sh  /root/scripts/aws-sso/aws-sso-login.sh
 COPY ./scripts/aws-sso/aws-sso-logout.sh  /root/scripts/aws-sso/aws-sso-logout.sh
 COPY ./scripts/aws-sso/aws-sso-entrypoint.sh  /root/scripts/aws-sso/aws-sso-entrypoint.sh
+COPY ./scripts/terraform/entrypoint.sh  /root/scripts/terraform/entrypoint.sh
 
 RUN chmod -R +x /root/scripts/
 
