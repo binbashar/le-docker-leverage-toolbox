@@ -1,7 +1,6 @@
 ARG TERRAFORM_VERSION
 
 ARG AWSCLI_VERSION=2.7.32
-ARG AWSVAULT_VERSION=v6.3.1
 ARG HCLEDIT_VERSION=0.2.2
 
 ################################################################
@@ -16,7 +15,6 @@ LABEL vendor="Binbash Leverage (info@binbash.com.ar)"
 ################################
 
 ARG AWSCLI_VERSION
-ARG AWSVAULT_VERSION
 ARG HCLEDIT_VERSION
 
 ################################
@@ -54,7 +52,6 @@ FROM base AS leverage-base
 
 ARG TERRAFORM_VERSION
 ARG AWSCLI_VERSION
-ARG AWSVAULT_VERSION
 ARG HCLEDIT_VERSION
 
 ################################
@@ -94,17 +91,7 @@ FROM leverage-base AS leverage-toolbox
 
 ARG TERRAFORM_VERSION
 ARG AWSCLI_VERSION
-ARG AWSVAULT_VERSION
 ARG HCLEDIT_VERSION
-
-################################
-# Install 
-################################
-
-# Add aws-vault
-RUN curl -LO "https://github.com/99designs/aws-vault/releases/download/${AWSVAULT_VERSION}/aws-vault-linux-amd64" \
-        && chmod +x aws-vault-linux-amd64 \
-        && mv aws-vault-linux-amd64 /usr/local/bin/aws-vault
 
 ################################
 # Install 
