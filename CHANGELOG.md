@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.6"></a>
+## [1.2.7-0.1.6] - 2023-02-28
+
+- HOTFIX added flag to jq command ([#45](https://github.com/binbashar/le-docker-leverage-toolbox/issues/45))
+
+
 <a name="1.3.5-0.1.5"></a>
-## [1.3.5-0.1.5] - 0001-01-01
+## [1.3.5-0.1.5] - 2023-02-28
 
 
 
@@ -164,7 +170,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.5...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.6...HEAD
+[1.2.7-0.1.6]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.5...1.2.7-0.1.6
 [1.3.5-0.1.5]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.5...1.3.5-0.1.5
 [1.2.7-0.1.5]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.4...1.2.7-0.1.5
 [1.3.5-0.1.4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.4...1.3.5-0.1.4
