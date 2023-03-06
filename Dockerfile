@@ -117,8 +117,9 @@ RUN curl -LO "https://github.com/padok-team/tfautomv/releases/download/v${TFAUTO
     && rm tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz
 
 ################################
-# Install
+# Install Kubectl
 ################################
+
 ARG KUBECTL_VERSION="v1.23.15"
 RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
     && chmod +x kubectl \
