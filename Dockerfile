@@ -94,7 +94,7 @@ ARG AWSCLI_VERSION
 ARG HCLEDIT_VERSION
 
 ################################
-# Install 
+# Install
 ################################
 
 # Install hcledit
@@ -105,7 +105,7 @@ RUN curl -LO "https://github.com/minamijoyo/hcledit/releases/download/v${HCLEDIT
         && rm hcledit_${HCLEDIT_VERSION}_linux_amd64.tar.gz
 
 ################################
-# Install 
+# Install
 ################################
 
 # Install tfautomv
@@ -117,7 +117,16 @@ RUN curl -LO "https://github.com/padok-team/tfautomv/releases/download/v${TFAUTO
     && rm tfautomv_${TFAUTOMV_VERSION}_Linux_x86_64.tar.gz
 
 ################################
-# Install 
+# Install Kubectl
+################################
+
+ARG KUBECTL_VERSION="v1.23.15"
+RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
+    && chmod +x kubectl \
+    && mv kubectl /usr/local/bin/kubectl
+
+################################
+# Install
 ################################
 
 # Add aws-mfa script
@@ -131,13 +140,13 @@ COPY ./scripts/aws-sso/aws-sso-logout.sh  /root/scripts/aws-sso/aws-sso-logout.s
 COPY ./scripts/aws-sso/aws-sso-entrypoint.sh  /root/scripts/aws-sso/aws-sso-entrypoint.sh
 
 ################################
-# Install 
+# Install
 ################################
 
 RUN chmod -R +x /root/scripts/
 
 ################################
-# Install 
+# Install
 ################################
 
 ENTRYPOINT ["terraform"]
