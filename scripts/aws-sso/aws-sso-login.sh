@@ -59,7 +59,7 @@ TOKEN_FILE="$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME"
 FILES=$(find "$AWS_SSO_CACHE_DIR" -maxdepth 1 -type f -name '*.json' -not -name 'botocore-client*' -exec ls {} \;)
 for file in $FILES;
 do
-    if (jq -r '.accessToken' $file >/dev/null);
+    if (jq -er '.accessToken' $file >/dev/null);
     then
         cp $file "$TOKEN_FILE"
         break
