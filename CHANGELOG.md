@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.9"></a>
+## [1.2.7-0.1.9] - 2023-04-14
+
+- BUG-46 Added logic for downloading platform specific tools ([#49](https://github.com/binbashar/le-docker-leverage-toolbox/issues/49))
+
+
 <a name="1.3.5-0.1.8"></a>
-## [1.3.5-0.1.8] - 0001-01-01
+## [1.3.5-0.1.8] - 2023-04-13
 
 
 
@@ -197,7 +203,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.8...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.9...HEAD
+[1.2.7-0.1.9]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.8...1.2.7-0.1.9
 [1.3.5-0.1.8]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.8...1.3.5-0.1.8
 [1.2.7-0.1.8]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.7...1.2.7-0.1.8
 [1.3.5-0.1.7]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.7...1.3.5-0.1.7
