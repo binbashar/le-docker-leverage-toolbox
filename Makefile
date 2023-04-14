@@ -12,6 +12,7 @@ AWS_REGION            := us-east-1
 AWS_IAM_PROFILE       := bb-apps-devstg-devops
 AWS_DOCKER_ENTRYPOINT := aws
 
+
 # ###############################################################
 # TERRAFORM AND CLI VERSIONS                                    #
 # ###############################################################
@@ -41,6 +42,11 @@ DOCKER_IMG_NAME  := leverage-toolbox
 # ADDITIONAL TAGS FOR THE DOCKER BUILD PROCESS
 #
 ADDITIONAL_TAGS := $(shell ((echo "${LEVERAGE_CLI_TAG}" | grep -q -E "\.rc[0-9]+$$") && echo "" ) || echo ${TERRAFORM_TAG}-latest)
+
+#
+# PLATFORMS
+#
+TARGET_PLATFORMS := 'linux/amd64,linux/arm64'
 
 # ###############################################################
 
