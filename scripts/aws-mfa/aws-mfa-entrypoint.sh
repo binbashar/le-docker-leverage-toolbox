@@ -155,6 +155,8 @@ for i in "${UNIQ_PROFILES[@]}" ; do
                         aws configure get role_arn --profile "$i" 2>&1); then
         if [[ "$MFA_ROLE_ARN" == *"$i"* ]]; then
             error "Credentials for profile $i have not been properly configured. Please check your configuration."
+            error "Check your AWS config file to look for the following profile entry: $i"
+            error "Check the following link for possible solutions: https://leverage.binbash.co/user-guide/troubleshooting/credentials/"
         else
             error "Missing 'role_arn'"
         fi

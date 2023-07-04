@@ -106,7 +106,7 @@ for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
 
     ACC_PROFILE="$PROJECT-$ACCOUNT-${ACCS_IAM_ROLES[$ACCOUNT]}"
     debug "AWS CLI profile: $BOLD$ACC_PROFILE$RESET"
-    
+
     # Check if credentials need to be renewed
     if TOKEN_EXPIRATION=$(aws configure get expiration --profile "$ACC_PROFILE" 2>&1); then
         TOKEN_EXPIRATION=$(("$TOKEN_EXPIRATION" / 1000)) # Token expiration was in miliseconds
@@ -119,17 +119,18 @@ for ACCOUNT in "${ACCS_TO_GET_CREDENTIALS[@]}"; do
         [[ $RENEWAL_TIME -lt $TOKEN_EXPIRATION ]] && info "Using already configured temporary credentials." && continue
     fi
 
-    # Retrieve credentials 
+    # Retrieve credentials
     if ! PROFILE_CREDENTIALS=$(aws --output json sso get-role-credentials \
                                                         --role-name "$SSO_ROLE_NAME" \
                                                         --account-id "$ACCOUNT_ID" \
                                                         --access-token "$SSO_ACCESS_TOKEN" 2>&1); then
         error "Unable to get valid credentials for role $BOLD$SSO_ROLE_NAME$RESET in account $BOLD$ACCOUNT$RESET.\nPlease check SSO configuration."
+        error "Check the following link for possible solutions: https://leverage.binbash.co/user-guide/troubleshooting/credentials/"
         exit 50
     fi
 
     # Write credentials
-    AWS_ACCESS_KEY_ID=$(echo "$PROFILE_CREDENTIALS" | jq -r '.roleCredentials.accessKeyId') 
+    AWS_ACCESS_KEY_ID=$(echo "$PROFILE_CREDENTIALS" | jq -r '.roleCredentials.accessKeyId')
     AWS_SECRET_ACCESS_KEY=$(echo "$PROFILE_CREDENTIALS" | jq -r '.roleCredentials.secretAccessKey')
     AWS_SESSION_TOKEN=$(echo "$PROFILE_CREDENTIALS" | jq -r '.roleCredentials.sessionToken')
     debug "Access Key Id: ${AWS_ACCESS_KEY_ID:0:4}***************"
