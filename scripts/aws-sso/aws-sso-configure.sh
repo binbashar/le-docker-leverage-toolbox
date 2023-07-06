@@ -61,7 +61,7 @@ CONF_START_URL=$(aws configure get sso_start_url --profile $SSO_PROFILE_NAME)
 
 for account in $(echo "$ACCOUNTS" | jq -c '.accountList[]'); do
 
-    ACCOUNT_ROLES=$(aws sso list-account-roles --region us-east-1 --access-token $(jq -r '.accessToken'  "$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME") --region us-east-1 --account-id $(echo "$account" | jq -r '.accountId'))
+    ACCOUNT_ROLES=$(aws sso list-account-roles --access-token $(jq -r '.accessToken'  "$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME") --account-id $(echo "$account" | jq -r '.accountId'))
     for account_role in $(echo "$ACCOUNT_ROLES" | jq -c '.roleList[]'); do
         PROFILE_NAME="$SSO_PROFILE_NAME-$(echo "$account" | jq -r '.accountName' | cut -d '-' -f2-)-$(echo "$account_role" | jq -r '.roleName' | cut -d '-' -f2-)"
 

@@ -195,11 +195,11 @@ workflows:
             branches:
              only: # only branches matching the below regex filters will run
                - master
-  sumo_test:
-    when:
-        or:
-        - << pipeline.parameters.not-image-related >>
-        - << pipeline.parameters.image-data-modified >>
-    jobs:
-      - sumologic/workflow-collector:
-          context: binbashar-org-global-context
+  #sumo_test:
+  #  when:
+  #      or:
+  #      - << pipeline.parameters.not-image-related >>
+  #      - << pipeline.parameters.image-data-modified >>
+  #  jobs:
+  #    - sumologic/workflow-collector:
+  #        context: binbashar-org-global-context
