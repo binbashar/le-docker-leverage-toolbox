@@ -63,11 +63,11 @@ for account in $(echo "$ACCOUNTS" | jq -c '.accountList[]'); do
 
     ACCOUNT_ROLES=$(aws sso list-account-roles --access-token $(jq -r '.accessToken'  "$SSO_CACHE_DIR/$SSO_TOKEN_FILE_NAME") --account-id $(echo "$account" | jq -r '.accountId'))
     for account_role in $(echo "$ACCOUNT_ROLES" | jq -c '.roleList[]'); do
-        PROFILE_NAME="$SSO_PROFILE_NAME-$(echo "$account" | jq -r '.accountName' | cut -d '-' -f2-)-$(echo "$account_role" | jq -r '.roleName' | cut -d '-' -f2-)"
+        PROFILE_NAME="$SSO_PROFILE_NAME-$(echo "$account" | jq -r '.accountName' | rev | cut -d'.' -f 1 | rev)-$(echo "$account_role" | jq -r '.roleName' | rev | cut -d'.' -f 1 | rev)"
 
         info "Configuring $BOLD$PROFILE_NAME$RESET."
 
-        aws configure set role_name "$(echo "$account_role" | jq -r '.roleName' | cut -d '-' -f2-)" --profile "$PROFILE_NAME"
+        aws configure set role_name "$(echo "$account_role" | jq -r '.roleName' | rev | cut -d'.' -f 1 | rev)" --profile "$PROFILE_NAME"
         aws configure set account_id "$(echo "$account" | jq -r '.accountId')" --profile "$PROFILE_NAME"
         aws configure set sso_region "$CONF_SSO_REGION" --profile "$PROFILE_NAME"
         aws configure set sso_start_url "$CONF_START_URL" --profile "$PROFILE_NAME"
