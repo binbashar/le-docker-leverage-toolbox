@@ -50,7 +50,7 @@ rm -f $SSO_CACHE_DIR/*
 
 # Clear AWS CLI credentials
 debug "Wiping current SSO credentials."
-awk '/^\[profile/{if($0~/profile '"$PROJECT-sso"'/){found=1}else{found=""}} !found' "$AWS_CONFIG_FILE" > aws2 && mv aws2 "$AWS_CONFIG_FILE"
+awk '/^\[/{if($0~/profile '"$PROJECT-sso"'/ || $0 == "[default]"){found=1}else{found=""}} found' "$AWS_CONFIG_FILE" > tempconf && mv tempconf "$AWS_CONFIG_FILE"
 
 rm -f "$AWS_SHARED_CREDENTIALS_FILE"
 
