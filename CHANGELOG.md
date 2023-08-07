@@ -7,8 +7,14 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.12"></a>
+## [1.2.7-0.1.12] - 2023-08-07
+
+- Fix | Bad SSO logout process ([#54](https://github.com/binbashar/le-docker-leverage-toolbox/issues/54))
+
+
 <a name="1.5.0-0.1.11"></a>
-## [1.5.0-0.1.11] - 0001-01-01
+## [1.5.0-0.1.11] - 2023-07-10
 
 
 
@@ -240,7 +246,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.11...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.12...HEAD
+[1.2.7-0.1.12]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.11...1.2.7-0.1.12
 [1.5.0-0.1.11]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.11...1.5.0-0.1.11
 [1.3.5-0.1.11]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.11...1.3.5-0.1.11
 [1.2.7-0.1.11]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.10...1.2.7-0.1.11
