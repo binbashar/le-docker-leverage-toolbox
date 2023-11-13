@@ -7,6 +7,11 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.3.5-0.1.13"></a>
+## [1.3.5-0.1.13] - 0001-01-01
+
+
+
 <a name="1.2.7-0.1.13"></a>
 ## [1.2.7-0.1.13] - 2023-11-13
 
@@ -262,7 +267,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.13...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.13...HEAD
+[1.3.5-0.1.13]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.13...1.3.5-0.1.13
 [1.2.7-0.1.13]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.12...1.2.7-0.1.13
 [1.5.0-0.1.12]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.12...1.5.0-0.1.12
 [1.3.5-0.1.12]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.12...1.3.5-0.1.12
