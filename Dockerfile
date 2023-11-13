@@ -42,7 +42,8 @@ apt-get install -y \
         oathtool \
         wget \
         python3 \
-        git
+        git \
+        vim
         # oath-toolkit-oathtool \
 
 #RUN ln -s /usr/bin/python3 python
