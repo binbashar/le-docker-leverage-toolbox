@@ -23,13 +23,14 @@
 ![GitHub watchers](https://img.shields.io/github/watchers/binbashar/le-docker-leverage.svg?style=social)
 
 # Release Management
+
 ### CircleCi PR auto-release job
 <div align="left">
   <img src="https://raw.githubusercontent.com/binbashar/le-docker-leverage/master/%40doc/figures/circleci.png" alt="leverage-circleci" width="130"/>
 </div>
 
+- ### 🚀 [**>> View Releases here <<**](https://github.com/binbashar/le-docker-leverage/releases) 🚀
 - [**pipeline-job**](https://app.circleci.com/pipelines/github/binbashar/le-docker-leverage) (**NOTE:** Will only run after merged PR)
-- [**releases**](https://github.com/binbashar/le-docker-leverage/releases) 
 - [**changelog**](https://github.com/binbashar/le-docker-leverage/blob/master/CHANGELOG.md) 
 
 # Version bumping process
