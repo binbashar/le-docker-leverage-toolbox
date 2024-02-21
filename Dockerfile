@@ -8,7 +8,7 @@ ARG KUBECTL_VERSION=v1.23.15
 ################################################################
 ################################################################
 
-FROM debian:11.6-slim AS base
+FROM debian:bullseye-20240211-slim AS base
 
 LABEL vendor="Binbash Leverage (info@binbash.com.ar)"
 
