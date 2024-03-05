@@ -7,8 +7,15 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.2.7-0.1.14"></a>
+## [1.2.7-0.1.14] - 2024-03-05
+
+- [Snyk] Security upgrade debian from 11.6-slim to bullseye-20240211-slim ([#57](https://github.com/binbashar/le-docker-leverage-toolbox/issues/57))
+- Update README.md highlighting releases link ([#56](https://github.com/binbashar/le-docker-leverage-toolbox/issues/56))
+
+
 <a name="1.5.0-0.1.13"></a>
-## [1.5.0-0.1.13] - 0001-01-01
+## [1.5.0-0.1.13] - 2023-11-13
 
 
 
@@ -272,7 +279,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.13...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.14...HEAD
+[1.2.7-0.1.14]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.13...1.2.7-0.1.14
 [1.5.0-0.1.13]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.13...1.5.0-0.1.13
 [1.3.5-0.1.13]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.2.7-0.1.13...1.3.5-0.1.13
 [1.2.7-0.1.13]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.12...1.2.7-0.1.13
