@@ -7,8 +7,24 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.6.0-0.1.16"></a>
+## [1.6.0-0.1.16] - 0001-01-01
+
+
+
+<a name="1.5.0-0.1.16"></a>
+## [1.5.0-0.1.16] - 2024-04-26
+
+
+
+<a name="1.3.5-0.1.16"></a>
+## [1.3.5-0.1.16] - 2024-04-26
+
+- chore: Bump kubectl to v1.25.16 ([#59](https://github.com/binbashar/le-docker-leverage-toolbox/issues/59))
+
+
 <a name="1.6.0-0.1.15"></a>
-## [1.6.0-0.1.15] - 0001-01-01
+## [1.6.0-0.1.15] - 2024-03-07
 
 
 
@@ -305,7 +321,10 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.0-0.1.15...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.0-0.1.16...HEAD
+[1.6.0-0.1.16]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.16...1.6.0-0.1.16
+[1.5.0-0.1.16]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.16...1.5.0-0.1.16
+[1.3.5-0.1.16]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.0-0.1.15...1.3.5-0.1.16
 [1.6.0-0.1.15]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.15...1.6.0-0.1.15
 [1.5.0-0.1.15]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.1.15...1.5.0-0.1.15
 [1.3.5-0.1.15]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.1.14...1.3.5-0.1.15
