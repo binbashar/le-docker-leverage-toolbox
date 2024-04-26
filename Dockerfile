@@ -3,7 +3,7 @@ ARG TERRAFORM_VERSION
 ARG AWSCLI_VERSION=2.7.32
 ARG HCLEDIT_VERSION=0.2.2
 ARG TFAUTOMV_VERSION=0.5.0
-ARG KUBECTL_VERSION=v1.27.13
+ARG KUBECTL_VERSION=v1.28.9
 
 ################################################################
 ################################################################
