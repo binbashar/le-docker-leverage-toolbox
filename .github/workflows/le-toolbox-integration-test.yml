@@ -92,6 +92,7 @@ jobs:
         env:
           LEVERAGE_INTERACTIVE: 0
         run: |
+          export DOCKER_HOST=/var/run/docker/docker.sock
           docker info
           echo $DOCKER_HOST
           ls -l /var/run/docker/docker.sock
