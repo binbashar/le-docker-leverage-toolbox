@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   test_leverage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout base branch
         uses: actions/checkout@v3
@@ -91,11 +91,7 @@ jobs:
       - name: Test Terraform
         env:
           LEVERAGE_INTERACTIVE: 0
-          DOCKER_HOST: unix:///run/docker/docker.sock
         run: |
-          docker info
-          ls -l /var/run/docker/docker.sock
-          ls -l /var/run/docker.sock
           printf "[INFO] Testing terraform\n"
           # These are later mounted in the container
           mkdir ~/.ssh && touch ~/.gitconfig
