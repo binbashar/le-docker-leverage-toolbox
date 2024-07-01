@@ -92,7 +92,6 @@ jobs:
         env:
           LEVERAGE_INTERACTIVE: 0
         run: |
-          docker info
           printf "[INFO] Testing terraform\n"
           # These are later mounted in the container
           mkdir ~/.ssh && touch ~/.gitconfig
