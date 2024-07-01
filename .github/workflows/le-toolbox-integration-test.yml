@@ -14,6 +14,7 @@ jobs:
           printf "[INFO] Cloning RefArch"
           git clone https://github.com/binbashar/le-tf-infra-aws.git ./refarch
 
+
       - name: Build and reference Toolbox Image
         run: |
           printf "[INFO] Build Toolbox\n"
@@ -91,7 +92,6 @@ jobs:
         env:
           LEVERAGE_INTERACTIVE: 0
         run: |
-          sudo ls -l /var/run/docker/docker.sock || sudo ls -l /var/run/docker.sock
           printf "[INFO] Testing terraform\n"
           # These are later mounted in the container
           mkdir ~/.ssh && touch ~/.gitconfig
@@ -117,5 +117,7 @@ jobs:
               printf "[ERROR]    Fail \n"
               exit 1
           fi
+
+
 
         working-directory: ./refarch/apps-devstg/global/cli-test-layer
