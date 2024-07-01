@@ -91,9 +91,10 @@ jobs:
       - name: Test Terraform
         env:
           LEVERAGE_INTERACTIVE: 0
-          DOCKER_HOST: unix:///run/docker/docker.sock
         run: |
+          export DOCKER_HOST=/var/run/docker/docker.sock
           docker info
+          echo $DOCKER_HOST
           ls -l /var/run/docker/docker.sock
           ls -l /var/run/docker.sock
           printf "[INFO] Testing terraform\n"
