@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   test_leverage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout base branch
         uses: actions/checkout@v3
@@ -40,7 +40,7 @@ jobs:
         run: |
           printf "[INFO] Installing CLI\n"
           python --version
-          pip install leverage==1.12.2rc0
+          pip install leverage
 
       - name: Set up credentials
         run: |
