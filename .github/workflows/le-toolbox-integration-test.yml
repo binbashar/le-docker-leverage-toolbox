@@ -40,7 +40,7 @@ jobs:
         run: |
           printf "[INFO] Installing CLI\n"
           python --version
-          pip install leverage==1.12.2rc10
+          pip install leverage==1.12.2rc0
 
       - name: Set up credentials
         run: |
