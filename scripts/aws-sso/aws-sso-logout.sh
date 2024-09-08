@@ -32,7 +32,7 @@ function log {
 # -----------------------------------------------------------------------------
 SCRIPT_LOG_LEVEL=${SCRIPT_LOG_LEVEL:-2}
 PROJECT=$(hcledit -f "$COMMON_CONFIG_FILE" attribute get project | sed 's/"//g')
-SSO_CACHE_DIR=${SSO_CACHE_DIR:-/root/tmp/$PROJECT/sso/cache}
+SSO_CACHE_DIR=${SSO_CACHE_DIR:-/home/leverage/tmp/$PROJECT/sso/cache}
 debug "SCRIPT_LOG_LEVEL=$SCRIPT_LOG_LEVEL"
 debug "AWS_SHARED_CREDENTIALS_FILE=$AWS_SHARED_CREDENTIALS_FILE"
 debug "AWS_CONFIG_FILE=$AWS_CONFIG_FILE"
