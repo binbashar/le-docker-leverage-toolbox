@@ -33,8 +33,8 @@ function log {
 SCRIPT_LOG_LEVEL=${SCRIPT_LOG_LEVEL:-2}
 PROJECT=$(hcledit -f "$COMMON_CONFIG_FILE" attribute get project | sed 's/"//g')
 SSO_PROFILE_NAME=${SSO_PROFILE_NAME:-$PROJECT-sso}
-SSO_CACHE_DIR=${SSO_CACHE_DIR:-/root/tmp/$PROJECT/sso/cache}
-AWS_SSO_CACHE_DIR=/root/.aws/sso/cache
+SSO_CACHE_DIR=${SSO_CACHE_DIR:-/home/leverage/tmp/$PROJECT/sso/cache}
+AWS_SSO_CACHE_DIR=/home/leverage/.aws/sso/cache
 SSO_TOKEN_FILE_NAME='token'
 debug "SCRIPT_LOG_LEVEL=$SCRIPT_LOG_LEVEL"
 debug "COMMON_CONFIG_FILE=$COMMON_CONFIG_FILE"

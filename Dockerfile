@@ -171,19 +171,16 @@ RUN ["/bin/bash", "-c", ". .machinetype.env && \
 # Install Scripts
 ################################
 
-RUN mkdir -p /root/scripts/aws-mfa
-COPY ./scripts/aws-mfa/aws-mfa-entrypoint.sh  /root/scripts/aws-mfa/aws-mfa-entrypoint.sh
-RUN mkdir -p /root/scripts/aws-sso
-COPY ./scripts/aws-sso/aws-sso-configure.sh  /root/scripts/aws-sso/aws-sso-configure.sh
-COPY ./scripts/aws-sso/aws-sso-login.sh  /root/scripts/aws-sso/aws-sso-login.sh
-COPY ./scripts/aws-sso/aws-sso-logout.sh  /root/scripts/aws-sso/aws-sso-logout.sh
-COPY ./scripts/aws-sso/aws-sso-entrypoint.sh  /root/scripts/aws-sso/aws-sso-entrypoint.sh
+RUN mkdir -p /home/leverage
+COPY ./scripts/aws-mfa/aws-mfa-entrypoint.sh  /home/leverage/scripts/aws-mfa/aws-mfa-entrypoint.sh
+COPY ./scripts/aws-sso/aws-sso-login.sh  /home/leverage/scripts/aws-sso/aws-sso-login.sh
+COPY ./scripts/aws-sso/aws-sso-logout.sh  /home/leverage/scripts/aws-sso/aws-sso-logout.sh
 
 ################################
 # Install
 ################################
 
-RUN chmod -R +x /root/scripts/
+RUN chmod -R +x /home/leverage/scripts/
 
 ################################
 # Install
