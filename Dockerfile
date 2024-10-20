@@ -7,7 +7,7 @@ ARG KUBECTL_VERSION=v1.28.9
 ################################################################
 ################################################################
 
-FROM debian:bullseye-20240904-slim AS base
+FROM debian:bullseye-20241016-slim AS base
 
 LABEL vendor="Binbash Leverage (info@binbash.com.ar)"
 
