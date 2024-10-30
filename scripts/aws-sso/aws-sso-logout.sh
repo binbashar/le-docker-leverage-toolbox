@@ -31,7 +31,7 @@ function log {
 # Initialize variables
 # -----------------------------------------------------------------------------
 USR=$(whoami)
-USR_HOME=$([ "$USR" != "root" ] && echo "home/$USR")
+USR_HOME=$([ "$USR" == "root" ] && echo "root" || echo "home/$USR")
 SCRIPT_LOG_LEVEL=${SCRIPT_LOG_LEVEL:-2}
 PROJECT=$(hcledit -f "$COMMON_CONFIG_FILE" attribute get project | sed 's/"//g')
 SSO_CACHE_DIR=${SSO_CACHE_DIR:-"/${USR_HOME}/tmp/$PROJECT/sso/cache"}
