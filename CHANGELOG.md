@@ -7,8 +7,15 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.3.5-0.2.2"></a>
+## [1.3.5-0.2.2] - 2025-01-28
+
+- Feature | Add latest minor versions to 1.6 and 1.5 ([#70](https://github.com/binbashar/le-docker-leverage-toolbox/issues/70))
+- fix: Dockerfile to reduce vulnerabilities ([#69](https://github.com/binbashar/le-docker-leverage-toolbox/issues/69))
+
+
 <a name="1.6.0-0.2.1"></a>
-## [1.6.0-0.2.1] - 0001-01-01
+## [1.6.0-0.2.1] - 2024-10-30
 
 
 
@@ -388,7 +395,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.0-0.2.1...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.2.2...HEAD
+[1.3.5-0.2.2]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.0-0.2.1...1.3.5-0.2.2
 [1.6.0-0.2.1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.0-0.2.1...1.6.0-0.2.1
 [1.5.0-0.2.1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.2.1...1.5.0-0.2.1
 [1.3.5-0.2.1]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.0-0.2.0...1.3.5-0.2.1
