@@ -31,7 +31,7 @@ AWS_DOCKER_ENTRYPOINT := aws
 # IMPORTANT: For sake of the multi images kingdom, this is set
 # from the circle ci workflow reading the versions_to_build file,
 # this values will be overwritten at build time:
-TERRAFORM_TAG    := 1.3.5
+TERRAFORM_TAG    := 1.5.0
 LEVERAGE_CLI_TAG := 0.2.0
 
 DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
