@@ -53,7 +53,7 @@ mkdir -p "$SSO_CACHE_DIR"
 # Log in
 # -----------------------------------------------------------------------------
 info "Logging in..."
-aws sso login --profile "$SSO_PROFILE_NAME"
+aws sso login --profile "$SSO_PROFILE_NAME" --use-device-code
 
 # Store token in cache
 debug "Caching token"
