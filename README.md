@@ -41,12 +41,12 @@ For now is manual, but there is a check, when image built is requested, verifyin
 
 Container image tagging or versioning process is as follows:
 
-- Image tag is composed of <TERRAFORM_VERSION>-<LEVERAGE_TOOLBOX_IMAGE_VERSION>
-- The full name then is *binbash/leverage-toolbox:<TERRAFORM_VERSION>-<LEVERAGE_TOOLBOX_IMAGE_VERSION>*
+- Image tag is composed of <TOFU_VERSION>-<LEVERAGE_TOOLBOX_IMAGE_VERSION>
+- The full name then is *binbash/leverage-toolbox:<TOFU_VERSION>-<LEVERAGE_TOOLBOX_IMAGE_VERSION>*
 - When bumping version (tag):
-  - If TERRAFORM_VERSION has changed:
+  - If TOFU_VERSION has changed:
     - LEVERAGE_TOOLBOX_IMAGE_VERSION = 0.0.1
-  - If TERRAFORM_VERSION has not changed:
+  - If TOFU_VERSION has not changed:
     - LEVERAGE_TOOLBOX_IMAGE_VERSION is bumped (using semver as needed)
     
 E.g., given image *binbash/leverage-toolbox:1.2.1-0.0.1*:
@@ -54,7 +54,7 @@ E.g., given image *binbash/leverage-toolbox:1.2.1-0.0.1*:
 - We know it contains Terraform 1.2.1 and it is the first iteration for this toolbox set.
 - If something other than Terraform is updated the LEVERAGE_TOOLBOX_IMAGE_VERSION is bumped, e.g.:
   - *binbash/leverage-toolbox:1.2.1-0.0.2* or *binbash/leverage-toolbox:1.2.1-0.1.0* (these examples are a patch and a minor)
-- If Terraform is updated then LEVERAGE_TOOLBOX_IMAGE_VERSION is reset and TERRAFORM_VERSION is bumped accordingly to the Terraform version, e.g.:
+- If Terraform is updated then LEVERAGE_TOOLBOX_IMAGE_VERSION is reset and TOFU_VERSION is bumped accordingly to the Terraform version, e.g.:
   - *binbash/leverage-toolbox:1.2.2-0.0.1* or *binbash/leverage-toolbox:1.3.0-0.0.1*
 
 Another example, e.g., given image *binbash/leverage-toolbox:1.2.1-0.5.3*:
@@ -62,7 +62,7 @@ Another example, e.g., given image *binbash/leverage-toolbox:1.2.1-0.5.3*:
 - We know it contains Terraform 1.2.1 and it is the iteration 0.5.3 for the toolbox set.
 - If something other than Terraform is updated the LEVERAGE_TOOLBOX_IMAGE_VERSION is bumped, e.g.:
   - *binbash/leverage-toolbox:1.2.1-0.5.4* or *binbash/leverage-toolbox:1.2.1-0.6.0* (these examples are a patch and a minor)
-- If Terraform is updated then LEVERAGE_TOOLBOX_IMAGE_VERSION is reset and TERRAFORM_VERSION is bumped accordingly to the Terraform version, e.g.:
+- If Terraform is updated then LEVERAGE_TOOLBOX_IMAGE_VERSION is reset and TOFU_VERSION is bumped accordingly to the Terraform version, e.g.:
   - *binbash/leverage-toolbox:1.2.2-0.0.1* or *binbash/leverage-toolbox:1.3.0-0.0.1*
 
 ## Where to change it?
@@ -71,20 +71,20 @@ In the `Makefile`:
 
 ``` shell
 # ###############################################################
-# TERRAFORM AND CLI VERSIONS                                    #
+# TOFU AND CLI VERSIONS                                         #
 # ###############################################################
-# The LEVERAGE_CLI_TAG should be set per TERRAFORM_TAG
-# e.g. if you have TERRA 1.2.1 and LEVERAGE 0.0.1 and
-# you update some script other that terraform in the image
-# the LEVERAGE tag should be upgraded, let's say tp 0.0.2
-# But if then you update the terraform tag to 1.3.0 the
-# LEVERAGE tag should be resetted to bu used under this new
-# terraform tag, e.g. 1.3.0 and 0.0.1
+# The LEVERAGE_CLI_TAG should be set per TOFU_TAG
+# e.g. if you have TOFU 1.6.0 and LEVERAGE 0.0.1 and
+# you update some script other that tofu in the image
+# the LEVERAGE tag should be upgraded, let's say to 0.0.2
+# But if then you update the tofu tag to 1.3.0 the
+# LEVERAGE tag should be reset but used under this new
+# tofu tag, e.g. 1.6.0 and 0.0.1
 # The resulting images should be:
 # 1.2.1-0.0.1
 # 1.2.1-0.0.2
 # 1.3.0-0.0.1
-TERRAFORM_TAG    := 1.2.7
+TOFU_TAG         := 1.6.0
 LEVERAGE_CLI_TAG := 0.0.2
 ```
 
