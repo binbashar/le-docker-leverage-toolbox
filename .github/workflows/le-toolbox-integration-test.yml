@@ -34,7 +34,7 @@ jobs:
           MFA_ENABLED=false
 
           # Terraform
-          TOFU_IMAGE_TAG=${TOOLBOX_VERSION}
+          TERRAFORM_IMAGE_TAG=${TOOLBOX_VERSION}
           EOF
 
       - name: Install CLI
