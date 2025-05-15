@@ -46,7 +46,7 @@ jobs:
                 then
                   echo "Building and testing $v...";
                   LOCALVER=($(echo "$v" | tr '-' ' '))
-                  make test-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TOFU_TAG=${LOCALVER[0]}
+                  make test-all LEVERAGE_CLI_TAG=${LOCALVER[-1]} TOFU_TAG=${LOCALVER[0]}
                 fi
             done
 
