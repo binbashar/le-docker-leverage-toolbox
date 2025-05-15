@@ -91,7 +91,7 @@ jobs:
                 then
                   echo "Building $v...";
                   LOCALVER=($(echo "$v" | tr '-' ' '))
-                  make push-all LEVERAGE_CLI_TAG=${LOCALVER[1]} TOFU_TAG=${LOCALVER[0]}
+                  make push-all LEVERAGE_CLI_TAG=${LOCALVER[-1]} TOFU_TAG=${LOCALVER[0]}
                 fi
             done
 
