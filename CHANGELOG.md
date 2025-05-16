@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 
 
 
+<a name="1.6.2-tofu-0.3.0"></a>
+## [1.6.2-tofu-0.3.0] - 2025-05-16
+
+- BL-255 | Drop terraform in favor of tofu ([#73](https://github.com/binbashar/le-docker-leverage-toolbox/issues/73))
+
+
 <a name="1.3.5-0.2.4"></a>
 ## [1.3.5-0.2.4] - 2025-05-05
 
@@ -448,7 +454,8 @@ All notable changes to this project will be documented in this file.
 - ISSUE-85 Initial commit
 
 
-[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.2.4...HEAD
+[Unreleased]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.2-tofu-0.3.0...HEAD
+[1.6.2-tofu-0.3.0]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.3.5-0.2.4...1.6.2-tofu-0.3.0
 [1.3.5-0.2.4]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.6-0.2.3...1.3.5-0.2.4
 [1.6.6-0.2.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.6.0-0.2.3...1.6.6-0.2.3
 [1.6.0-0.2.3]: https://github.com/binbashar/le-docker-leverage-toolbox/compare/1.5.7-0.2.3...1.6.0-0.2.3
