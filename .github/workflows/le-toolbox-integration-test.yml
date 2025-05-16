@@ -23,8 +23,8 @@ jobs:
           DOCKER_REPO_NAME=$(grep -E "DOCKER_REPO_NAME +:=" Makefile | sed -E 's/DOCKER_REPO_NAME +:= (.+)/\1/')
           DOCKER_IMG_NAME=$(grep -E "DOCKER_IMG_NAME +:=" Makefile | sed -E 's/DOCKER_IMG_NAME +:= (.+)/\1/')
           LEVERAGE_CLI_TAG=$(grep -E "LEVERAGE_CLI_TAG +:=" Makefile | sed -E 's/LEVERAGE_CLI_TAG +:= (.+)/\1/')
-          TERRAFORM_TAG=$(grep -E "TERRAFORM_TAG +:=" Makefile | sed -E 's/TERRAFORM_TAG +:= (.+)/\1/')
-          TOOLBOX_VERSION=${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
+          TOFU_TAG=$(grep -E "TOFU_TAG +:=" Makefile | sed -E 's/TOFU_TAG +:= (.+)/\1/')
+          TOOLBOX_VERSION=${TOFU_TAG}-${LEVERAGE_CLI_TAG}
           TOOLBOX_IMAGE=${DOCKER_REPO_NAME}/${DOCKER_IMG_NAME}
           cat << EOF > refarch/build.env
           # Project settings
@@ -92,7 +92,7 @@ jobs:
         env:
           LEVERAGE_INTERACTIVE: 0
         run: |
-          printf "[INFO] Testing terraform\n"
+          printf "[INFO] Testing tofu\n"
           # These are later mounted in the container
           mkdir ~/.ssh && touch ~/.gitconfig
 

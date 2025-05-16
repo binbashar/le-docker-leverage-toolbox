@@ -1,4 +1,4 @@
-ARG TERRAFORM_VERSION
+ARG TOFU_VERSION
 
 ARG AWSCLI_VERSION=2.25.9
 ARG HCLEDIT_VERSION=0.2.2
@@ -56,7 +56,7 @@ FROM base AS leverage-base
 # Versions
 ################################
 
-ARG TERRAFORM_VERSION
+ARG TOFU_VERSION
 ARG AWSCLI_VERSION
 ARG HCLEDIT_VERSION
 ARG TFAUTOMV_VERSION
@@ -82,16 +82,15 @@ RUN if [  $(echo "${TARGETPLATFORM}" | grep -E "^.*arm64.*$" | wc -l) -gt 0 ]; \
     fi
 
 ################################
-# Install Terraform
+# Install OpenTofu
 ################################
 
 RUN ["/bin/bash", "-c", ". .machinetype.env && \
-    wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${PLATFORM}.zip && \
-    unzip terraform_${TERRAFORM_VERSION}_linux_${PLATFORM}.zip && \
-    mv terraform /usr/local/bin/ && \
-    ln -s /usr/local/bin/terraform /bin/terraform && \
-    terraform --version "]
-
+    wget https://github.com/opentofu/opentofu/releases/download/v${TOFU_VERSION}/tofu_${TOFU_VERSION}_linux_${PLATFORM}.zip && \
+    unzip tofu_${TOFU_VERSION}_linux_${PLATFORM}.zip && \
+    mv tofu /usr/local/bin/ && \
+    ln -s /usr/local/bin/tofu /bin/tofu && \
+    tofu --version "]
 ################################
 # Install AWS CLI
 ################################
@@ -111,7 +110,7 @@ FROM leverage-base AS leverage-toolbox
 # Versions
 ################################
 
-ARG TERRAFORM_VERSION
+ARG TOFU_VERSION
 ARG AWSCLI_VERSION
 ARG HCLEDIT_VERSION
 ARG TFAUTOMV_VERSION
@@ -186,4 +185,4 @@ RUN chmod -R +x /home/leverage/scripts/
 # Install
 ################################
 
-ENTRYPOINT ["terraform"]
+ENTRYPOINT ["tofu"]

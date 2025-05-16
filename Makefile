@@ -14,15 +14,15 @@ AWS_DOCKER_ENTRYPOINT := aws
 
 
 # ###############################################################
-# TERRAFORM AND CLI VERSIONS                                    #
+# TOFU AND CLI VERSIONS                                         #
 # ###############################################################
-# The LEVERAGE_CLI_TAG should be set per TERRAFORM_TAG
-# e.g. if you have TERRA 1.2.1 and LEVERAGE 0.0.1 and
-# you update some script other that terraform in the image
-# the LEVERAGE tag should be upgraded, let's say tp 0.0.2
-# But if then you update the terraform tag to 1.3.0 the
-# LEVERAGE tag should be resetted to bu used under this new
-# terraform tag, e.g. 1.3.0 and 0.0.1
+# The LEVERAGE_CLI_TAG should be set per TOFU_TAG
+# e.g. if you have TOFU 1.2.1 and LEVERAGE 0.0.1 and
+# you update some script other that tofu in the image
+# the LEVERAGE tag should be upgraded, let's say to 0.0.2
+# But if then you update the tofu tag to 1.3.0 the
+# LEVERAGE tag should be reset but used under this new
+# tofu tag, e.g. 1.3.0 and 0.0.1
 # The resulting images should be:
 # 1.2.1-0.0.1
 # 1.2.1-0.0.2
@@ -31,17 +31,17 @@ AWS_DOCKER_ENTRYPOINT := aws
 # IMPORTANT: For sake of the multi images kingdom, this is set
 # from the circle ci workflow reading the versions_to_build file,
 # this values will be overwritten at build time:
-TERRAFORM_TAG    := 1.5.0
-LEVERAGE_CLI_TAG := 0.2.0
+TOFU_TAG         := 1.6.0
+LEVERAGE_CLI_TAG := 0.3.0
 
-DOCKER_TAG       := ${TERRAFORM_TAG}-${LEVERAGE_CLI_TAG}
+DOCKER_TAG       := ${TOFU_TAG}-tofu-${LEVERAGE_CLI_TAG}
 DOCKER_REPO_NAME := binbash
 DOCKER_IMG_NAME  := leverage-toolbox
 
 #
 # ADDITIONAL TAGS FOR THE DOCKER BUILD PROCESS
 #
-ADDITIONAL_TAGS := $(shell ((echo "${LEVERAGE_CLI_TAG}" | grep -q -E "\.rc[0-9]+$$") && echo "" ) || echo ${TERRAFORM_TAG}-latest)
+ADDITIONAL_TAGS := $(shell ((echo "${LEVERAGE_CLI_TAG}" | grep -q -E "\.rc[0-9]+$$") && echo "" ) || echo ${TOFU_TAG}-latest)
 
 #
 # PLATFORMS
@@ -56,7 +56,7 @@ CURRENT_TAG      := $(shell git tag | grep ${DOCKER_TAG})
 #
 # ADDITIONAL ARGS FOR THE DOCKER BUILD PROCESS
 #
-ADDITIONAL_DOCKER_ARGS := "TERRAFORM_VERSION='${TERRAFORM_TAG}'"
+ADDITIONAL_DOCKER_ARGS := "TOFU_VERSION='${TOFU_TAG}'"
 
 #
 # GIT-RELEASE
@@ -153,20 +153,20 @@ endif
 # TESTS														   #
 #==============================================================#
 
-test: run-awscli-version run-python-version run-terraform-version ## ci docker image tests
+test: run-awscli-version run-python-version run-tofu-version ## ci docker image tests
 
 # awscli
 #
 run-awscli-version: ## docker run awscli commands
 	${AWSCLI_CMD_PREFIX} --version
 
-# terraform & python
+# tofu & python
 #
 run-python-version: ## docker run python --version
 	docker run -it --rm --entrypoint=python3 \
 	${DOCKER_REPO_NAME}/${DOCKER_IMG_NAME}:${DOCKER_TAG} --version
 
-run-terraform-version: ## docker run terraform --version
+run-tofu-version: ## docker run tofu --version
 	docker run -it --rm \
 	${DOCKER_REPO_NAME}/${DOCKER_IMG_NAME}:${DOCKER_TAG} --version
 
